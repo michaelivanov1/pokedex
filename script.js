@@ -3,7 +3,7 @@ const fetchPokemon = async () => {
     let pokeArray = []
 
     try {
-        for (let i = 1; i <= 50; i++) {
+        for (let i = 1; i <= 20; i++) {
             const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
 
             await fetch(url).then((response) => { pokeArray.push(response.json()) })
@@ -11,10 +11,10 @@ const fetchPokemon = async () => {
 
         Promise.all(pokeArray).then(results => {
             const parsePokemon = results.map(data => ({
-                name: data.name,
+                name: data.name.charAt(0).toUpperCase() + data.name.slice(1),
                 id: data.id,
                 image: data.sprites['front_default'],
-                type: data.types.map((type) => type.type.name).join(', ') // for multiple types
+                type: data.types.map((type) => type.type.name).join(', ')
             }));
             renderPokemon(parsePokemon)
         })
@@ -25,12 +25,24 @@ const fetchPokemon = async () => {
 
 const renderPokemon = (pokemon) => {
 
+    // pokemon.map(p => {
+    //     console.log(p.type)
+    // })
+
     const HTMLString = pokemon.map(p =>
         `
         <li class="card-full">
             <img class="card-image" src="${p.image}"/>
-            <h2 class="card-title">${p.id}. ${p.name}</h2>
-            <p class="card-type">Type: ${p.type}</p
+            <h3 class="card-id">${p.id}</h3>
+            <h2 class="card-title">${p.name}</h2>
+            <p class="card-type">${p.type
+        // == 'fire'
+        // ?
+        // document.querySelector('.card-title').style.color = 'red'
+        // :
+        // document.querySelector('.card-title').style.color = "black"
+        }
+            </p>
         </li>
         `
     ).join('');
