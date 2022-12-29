@@ -3,7 +3,7 @@ const fetchPokemon = async () => {
     let pokeArray = []
 
     try {
-        for (let i = 1; i <= 20; i++) {
+        for (let i = 1; i <= 50; i++) {
             const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
 
             await fetch(url).then((response) => { pokeArray.push(response.json()) })
@@ -13,7 +13,7 @@ const fetchPokemon = async () => {
             const parsePokemon = results.map(data => ({
                 name: data.name.charAt(0).toUpperCase() + data.name.slice(1),
                 id: data.id,
-                image: data.sprites['front_default'],
+                image: data.sprites.versions['generation-v']['black-white'].animated['front_default'] || data.sprites['front_default'],
                 type: data.types.map((type) => type.type.name).join(', ')
             }));
             renderPokemon(parsePokemon)
