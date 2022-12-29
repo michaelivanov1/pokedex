@@ -9,7 +9,7 @@ const fetchData = async () => {
         console.error('error fetching data: ' + err)
     }
 }
-
+// t 
 const renderData = async () => {
     let pokemon = await fetchData()
     let t = pokemon.results
