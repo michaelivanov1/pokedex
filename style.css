@@ -9,7 +9,6 @@
 }
 
 .middle-container {
-    border: 1px solid black;
     width: 70%;
     margin-left: auto;
     margin-right: auto;
@@ -22,6 +21,8 @@
     padding: 20px;
     height: 80px;
     border: 1px solid lightgray;
+    border-radius: 25px;
+    margin-bottom: 20px;
 }
 
 .pokedex-title {
@@ -29,33 +30,61 @@
 }
 
 .section-search {
-    margin-top: 20px;
     padding: 20px;
-    height: 80px;
+    height: 100%;
     border: 1px solid lightgray;
+    border-radius: 25px;
+    margin: auto;
+}
+
+#search-bar {
+    height: 60px;
+    min-width: 50%;
+    border-radius: 25px;
+    border: 1px solid white;
+    box-shadow: 0 1px 5px rgb(0 0 0 / 0.1);
+    padding-left: 20px;
+    font-size: medium;
 }
 
 .pokemon-container {
     margin-top: 20px;
 }
 
-.card-button {
-    border-radius: 16%;
-    box-shadow: 0 1px 5px rgb(0 0 0 / 0.1);
-}
-
 .card-full {
     list-style: none;
     padding: 0px 40px 40px 40px;
-    background-color: white;
     color: black;
     text-align: center;
     border-radius: 16%;
-    box-shadow: 0 1px 5px rgb(0 0 0 / 0.1);
+    background-color: white;
+    border: none;
+    box-shadow: 0 5px 10px rgb(0 0 0 / 0.1);
+    border-radius: 20px;
+    padding-top: 10px;
 }
 
-.card-image {
+.card-li {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
 
+/* .card-full :hover {
+    background-color: red;
+    border: none;
+    box-shadow: 0 5px 10px rgb(0 0 0 / 0.1);
+    border-radius: 20px;
+} */
+
+/* .card-full {
+  
+} */
+
+.card-image {
+    height: 54px;
+    width: 54px;
+    margin-bottom: 10px;
 }
 
 .card-id {
@@ -68,7 +97,8 @@
 }
 
 .card-type {
-
+    border-radius: 10px;
+    border: 3px solid green;
 }
 
 #pokedex {
@@ -76,6 +106,6 @@
     display: grid;
     /* generate as many columns wide as it can based on a minimum of xx px, and divide it evenly 
        the repeat is so it does it for all columns */
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
     grid-gap: 30px;
 }
