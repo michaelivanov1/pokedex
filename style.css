@@ -1,0 +1,56 @@
+* {
+    margin: 0;
+}
+
+.full-container {
+    background-color: #323232;
+    min-height: 100vh;
+}
+
+.middle-container {
+    border: 1px solid black;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #FFFFFF;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.section-title {
+    padding: 20px;
+    height: 80px;
+    border: 1px solid lightgray;
+}
+
+.pokedex-title {
+    font-family: sans-serif;
+}
+
+.section-search {
+    margin-top: 20px;
+    padding: 20px;
+    height: 80px;
+    border: 1px solid lightgray;
+}
+
+.pokemon-container {
+    margin-top: 20px;
+}
+
+.card-full {
+    padding: 40px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    border-radius: 3%;
+}
+
+#pokedex {
+    padding: 0;
+    display: grid;
+    /* generate as many columns wide as it can based on a minimum of xx px, and divide it evenly 
+       the repeat is so it does it for all columns */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 20px;
+}

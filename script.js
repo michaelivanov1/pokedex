@@ -1,36 +1,45 @@
-const fetchData = async () => {
+const fetchPokemon = async () => {
 
-    let url = 'https://pokeapi.co/api/v2/pokemon/'
+    let pokeArray = []
 
     try {
-        let response = await fetch(url)
-        return await response.json()
+        for (let i = 1; i <= 50; i++) {
+            const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
+
+            await fetch(url)
+                .then((response) => {
+                    pokeArray.push(response.json())
+                })
+        }
     } catch (err) {
-        console.error('error fetching data: ' + err)
+        console.error(`error fetching from api: ${err}`)
     }
-}
-// t 
-const renderData = async () => {
-    let pokemon = await fetchData()
-    let t = pokemon.results
-    // let d = t.map((n) => n.name)
-    // console.log(d)
 
-    let renderToHTML = '';
-
-    t.forEach(pokemon => {
-        let htmlSegment = `<div>
-                                <h3>${JSON.stringify(pokemon.name)}</h3>
-        
-                            </div>`
-
-        renderToHTML += htmlSegment;
-    });
-
-    let container = document.querySelector('.container');
-    container.innerHTML = renderToHTML;
+    Promise.all(pokeArray).then(results => {
+        const parsePokemon = results.map(data => ({
+            name: data.name,
+            id: data.id,
+            image: data.sprites['front_default'],
+            type: data.types.map((type) => type.type.name).join(', ') // for multiple types
+        }));
+        renderPokemon(parsePokemon)
+    })
 }
 
-renderData()
+const renderPokemon = (pokemon) => {
 
-// FetchData()
+    const HTMLString = pokemon.map(p =>
+        `
+        <li class="card-full">
+            <img class="card-image" src="${p.image}"/>
+            <h2 class="card-title">${p.id}. ${p.name}</h2>
+            <p class="card-subtitle">Type: ${p.type}</p
+        </li>
+        `
+    ).join('');
+
+    let ol = document.getElementById('pokedex');
+    ol.innerHTML = HTMLString;
+}
+
+fetchPokemon()
