@@ -2,6 +2,7 @@ const fetchPokemon = async () => {
   let pokeArray = [];
 
   try {
+    renderLoading();
     for (let i = 1; i <= 20; i++) {
       const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
 
@@ -51,6 +52,15 @@ const onPokemonClick = async (e) => {
   } catch (err) {
     console.error(`error fetching from api: ${err}`);
   }
+};
+
+const renderLoading = () => {
+  const HTMLString = `
+  <h1>loading...</h1>
+  `;
+
+  let ol = document.getElementById("pokedex");
+  ol.innerHTML = HTMLString;
 };
 
 const renderPokemon = (pokemon) => {
