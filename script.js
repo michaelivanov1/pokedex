@@ -19,7 +19,7 @@ const fetchPokemon = async () => {
             "front_default"
           ] || data.sprites["front_default"],
         type: data.types.map((type) => type.type.name).join(", "),
-        order: data.order,
+        order: data.id,
       }));
       renderPokemon(parsePokemon);
     });
@@ -46,7 +46,7 @@ const onPokemonClick = async (e) => {
         type: results.types.map((type) => type.type.name).join(", "),
         order: results.order,
       };
-      defineCurrentPokemon(currPokemon);
+      currentPokemonInfo(currPokemon);
     });
   } catch (err) {
     console.error(`error fetching from api: ${err}`);
@@ -86,7 +86,8 @@ const renderPokemon = (pokemon) => {
   ol.innerHTML = HTMLString;
 };
 
-const defineCurrentPokemon = (pokemon) => {
+const currentPokemonInfo = (pokemon) => {
+  console.log(pokemon);
   const HTMLString = `
         <button class="card-full" onclick=onPokemonClick(this) id="${
           pokemon.order
@@ -108,8 +109,8 @@ const defineCurrentPokemon = (pokemon) => {
         </button>
         `;
 
-  let ol = document.getElementById("pokedex");
-  ol.innerHTML = HTMLString;
+  let info = document.getElementById("pokemon-info");
+  info.innerHTML = HTMLString;
 };
 
 fetchPokemon();

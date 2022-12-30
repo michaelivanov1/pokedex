@@ -51,6 +51,12 @@
     margin-top: 20px;
 }
 
+.pokemon-info-container {
+    display: inline-flex;
+    position: absolute;
+
+}
+
 .card-full {
     list-style: none;
     padding: 0px 40px 40px 40px;
