@@ -1,16 +1,21 @@
+const startTime = new Date();
 // fetch pokemon on page load
 const fetchPokemon = async () => {
   let pokeArray = [];
   try {
     renderLoading();
     // max count: 905
-    for (let i = 1; i <= 42; i++) {
+    for (let i = 1; i <= 905; i++) {
       const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
 
       await fetch(url).then((response) => {
         pokeArray.push(response.json());
       });
     }
+    //Time Test api
+    const apiEnd = new Date();
+    console.log(`after api is fetched ${(apiEnd - startTime) / 1000}s`);
+    //
     Promise.all(pokeArray).then((results) => {
       const parsePokemon = results.map((data) => ({
         name: data.name.charAt(0).toUpperCase() + data.name.slice(1),
@@ -22,7 +27,16 @@ const fetchPokemon = async () => {
         type: data.types.map((type) => type.type.name).join(", "),
         order: data.id,
       }));
+      //Time Test array making
+      const arrEnd = new Date();
+      console.log(`after making the pokeArray ${(arrEnd - apiEnd) / 1000}s`);
+      //
+
       renderPokemon(parsePokemon);
+      //Time Test render mon
+      const renEnd = new Date();
+      console.log(`after the render function ${(renEnd - arrEnd) / 1000}s`);
+      //
     });
   } catch (err) {
     console.error(`error fetching from api: ${err}`);
