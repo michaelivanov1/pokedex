@@ -3,42 +3,50 @@
     font-family: sans-serif;
 }
 
+body {
+    overflow-y: hidden;
+}
+
 .full-container {
     background-color: #FFFFFF;
     min-height: 100vh;
+    width: 100%;
 }
 
-.middle-container {
+.title-container {
+    margin-top: 20px;
+    border-radius: 25px;
     width: 70%;
     margin-left: auto;
     margin-right: auto;
     background-color: #F6F8FC;
-    min-height: 100vh;
-    padding: 20px;
+    padding: 0px 20px 0px 20px;
 }
 
 .section-title {
-    padding: 20px;
-    height: 80px;
-    border: 1px solid lightgray;
+    padding: 14px;
     border-radius: 25px;
     margin-bottom: 20px;
 }
 
-.pokedex-title {
-    
+.title {}
+
+.search-container {
+    border-radius: 25px;
+    margin-top: 20px;
+    width: 50%;
+    margin-left: 14%;
+    background-color: #F6F8FC;
+    padding: 14px;
 }
 
 .section-search {
-    padding: 20px;
-    height: 100%;
-    border: 1px solid lightgray;
     border-radius: 25px;
     margin: auto;
 }
 
 #search-bar {
-    height: 60px;
+    height: 45px;
     min-width: 50%;
     border-radius: 25px;
     border: 1px solid white;
@@ -49,15 +57,80 @@
 
 .pokemon-container {
     margin-top: 20px;
+    height: 660px;
+    overflow-y: auto;
+    width: 50%;
+    margin-left: 14%;
+    background-color: #F6F8FC;
+    padding: 20px;
+}
+
+#pokedex {
+    padding: 0;
+    display: grid;
+    /* generate as many columns wide as it can based on a minimum of xx px, and divide it evenly 
+       the repeat is so it does it for all columns */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-gap: 10px;
 }
 
 .pokemon-info-container {
-    display: inline-flex;
-    position: absolute;
-
+    width: 25%;
 }
 
+.sidebar-container {
+    width: 360px;
+    height: 500px;
+    position: absolute;
+    right: 14%;
+    top: 202px;
+    border: 1px solid black;
+    margin-left: 10px;
+}
+
+
+
+/* BEGINNING OF JS REFERENCED CSS */
+
 .card-full {
+    list-style: none;
+    padding: 0px 10px 10px 10px;
+    color: black;
+    text-align: center;
+    border-radius: 16%;
+    background-color: white;
+    border: none;
+    box-shadow: 0 5px 10px rgb(0 0 0 / 0.1);
+    border-radius: 20px;
+    padding-top: 10px;
+    width: 280px;
+}
+
+.card-li {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card-image {
+    height: 54px;
+    width: 54px;
+    margin-bottom: 10px;
+}
+
+.card-id {
+    color: darkgray;
+}
+
+.card-title {}
+
+.card-type {
+    border-radius: 10px;
+    border: 3px solid green;
+}
+
+.selected-card-full {
+    height: 500px;
     list-style: none;
     padding: 0px 40px 40px 40px;
     color: black;
@@ -68,13 +141,23 @@
     box-shadow: 0 5px 10px rgb(0 0 0 / 0.1);
     border-radius: 20px;
     padding-top: 10px;
+    width: 280px;
+    /* border: 1px solid black; */
 }
 
-.card-li {
-    width: 50%;
-    margin-left: auto;
-    margin-right: auto;
+.selected-card-image {
+    height: 200px;
+    width: 200px;
 }
+
+.selected-card-id {
+    color: darkgray;
+}
+
+.selected-card-title {}
+
+.selected-card-type {}
+
 
 /* .card-full :hover {
     background-color: red;
@@ -86,32 +169,3 @@
 /* .card-full {
   
 } */
-
-.card-image {
-    height: 54px;
-    width: 54px;
-    margin-bottom: 10px;
-}
-
-.card-id {
-    color: darkgray;
-
-}
-
-.card-title {
-
-}
-
-.card-type {
-    border-radius: 10px;
-    border: 3px solid green;
-}
-
-#pokedex {
-    padding: 0;
-    display: grid;
-    /* generate as many columns wide as it can based on a minimum of xx px, and divide it evenly 
-       the repeat is so it does it for all columns */
-    grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
-    grid-gap: 30px;
-}
