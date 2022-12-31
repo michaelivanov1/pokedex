@@ -84,8 +84,14 @@ body {
     position: absolute;
     right: 14%;
     top: 202px;
-    border: 1px solid black;
-    margin-left: 10px;
+    padding: 0px 40px 40px 40px;
+    color: black;
+    text-align: center;
+    background-color: lightgray;
+    border: none;
+    box-shadow: 0 5px 10px rgb(0 0 0 / 0.1);
+    border-radius: 20px;
+    width: 280px;
 }
 
 
@@ -130,7 +136,7 @@ body {
 }
 
 .selected-card-full {
-    height: 500px;
+    height: 220px;
     list-style: none;
     padding: 0px 40px 40px 40px;
     color: black;
@@ -156,7 +162,15 @@ body {
 
 .selected-card-title {}
 
-.selected-card-type {}
+.selected-card-type {
+    background-color: lightblue;
+    border: 1px solid black;
+    border-radius: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+    margin-top: 6px;
+}
 
 
 /* .card-full :hover {

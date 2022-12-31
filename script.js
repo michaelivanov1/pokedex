@@ -4,7 +4,7 @@ const fetchPokemon = async () => {
   try {
     renderLoading();
     // max count: 905
-    for (let i = 1; i <= 42; i++) {
+    for (let i = 1; i <= 905; i++) {
       const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
 
       await fetch(url).then((response) => {
@@ -17,7 +17,7 @@ const fetchPokemon = async () => {
         id: "#" + data.id,
         image:
           data.sprites.versions["generation-v"]["black-white"].animated[
-            "front_default"
+          "front_default"
           ] || data.sprites["front_default"],
         type: data.types.map((type) => type.type.name).join(", "),
         order: data.id,
@@ -87,18 +87,22 @@ const renderPokemon = (pokemon) => {
 
 // the display that comes up for currently selected pokemon
 const currentPokemonInfo = (pokemon) => {
-  console.log(pokemon);
-  const HTMLString = `
-        <div class="selected-card-full"> 
-            <img class="selected-card-image" src="${pokemon.image}"/>
-            <h3 class="selected-card-id">${pokemon.id}</h3>
-            <h2 class="selected-card-title" >${pokemon.name}</h2>
-            <p class="selected-card-type">${pokemon.type}</p>
-        </div>
-        `;
 
-  let info = document.getElementById("pokemon-info");
-  info.innerHTML = HTMLString;
+  let splitTypes = pokemon.type.split(', ');
+  let typeString = '';
+
+  const HTMLString = `   
+      <img class="selected-card-image" src="${pokemon.image}"/>
+      <h3 class="selected-card-id">${pokemon.id}</h3>
+      <h2 class="selected-card-title" >${pokemon.name}</h2>
+  `;
+
+  splitTypes.forEach((p) => {
+    typeString += `<p class="selected-card-type ${typeColorCodes(p)}">${p}</p>`
+  })
+
+  let info = document.getElementById("sidebar-container");
+  info.innerHTML = HTMLString + typeString
 };
 
 function searchForPokemon() {
@@ -123,3 +127,37 @@ function searchForPokemon() {
 }
 
 fetchPokemon();
+
+
+
+
+
+
+
+
+
+
+function typeColorCodes(pokemonType) {
+  let colorClass = '';
+
+  if (pokemonType == "normal") colorClass = 'normal'
+  else if (pokemonType == "fire") colorClass = 'fire'
+  else if (pokemonType == "water") colorClass = 'water'
+  else if (pokemonType == "electric") colorClass = 'electric'
+  else if (pokemonType == "grass") colorClass = 'grass'
+  else if (pokemonType == "ice") colorClass = 'ice'
+  else if (pokemonType == "fighting") colorClass = 'fighting'
+  else if (pokemonType == "poison") colorClass = 'poison'
+  else if (pokemonType == "ground") colorClass = 'ground'
+  else if (pokemonType == "flying") colorClass = 'flying'
+  else if (pokemonType == "psychic") colorClass = 'psychic'
+  else if (pokemonType == "bug") colorClass = 'bug'
+  else if (pokemonType == "rock") colorClass = 'rock'
+  else if (pokemonType == "ghost") colorClass = 'ghost'
+  else if (pokemonType == "dragon") colorClass = 'dragon'
+  else if (pokemonType == "dark") colorClass = 'dark'
+  else if (pokemonType == "steel") colorClass = 'steel'
+  else if (pokemonType == "fairy") colorClass = 'fairy'
+
+  return colorClass;
+}
