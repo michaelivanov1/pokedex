@@ -74,6 +74,23 @@ const disableSidebarOnInitialLoad = () => {
   pokeContainer.style.width = '70%';
 }
 
+// fetch pokemon descriptions
+const fetchPokemonDescription = async (id) => {
+
+  let descString;
+  const url = `https://pokeapi.co/api/v2/pokemon-species/${id}`;
+
+  await fetch(url).then((response) => {
+    return response.json()
+  })
+    .then((desc) => {
+      descString = {
+        description: desc['flavor_text_entries'][0]['flavor_text']
+      }
+    })
+  return descString
+}
+
 // render pokemon cards
 const renderPokemon = (pokemon) => {
   const HTMLString = pokemon
@@ -95,11 +112,25 @@ const renderPokemon = (pokemon) => {
   ol.innerHTML = HTMLString;
 };
 
+// function to check if passed in text is english characters
+const isTextEnglish = (text) => {
+  let english = /^[A-Za-z0-9.,é]*$/;
+  const toArray = text.split(' ');
+  let toString = [];
+  for (let i = 0; i < toArray.length; i++) {
+    if (english.test(toArray[i])) {
+      toString.push(toArray[i]);
+    }
+  }
+  return toString.join(" ");
+}
+
 // the display that comes up for currently selected pokemon
 const currentPokemonInfo = (pokemon) => {
 
   let splitTypes = pokemon.type.split(', ');
   let typeString = '';
+  let descString = '';
 
   const HTMLString = `   
       <img class="selected-card-image" src="${pokemon.image}"/>
@@ -108,7 +139,7 @@ const currentPokemonInfo = (pokemon) => {
   `;
 
   splitTypes.forEach((p) => {
-    typeString += `<p class="selected-card-type ${typeColorCodes(p)}">${p}</p>`
+    typeString += `<p class="selected-card-type ${typeColorCodes(p)}">${p.charAt(0).toUpperCase() + p.slice(1)}</p>`
   })
 
   // enable sidebar upon selected pokemon
@@ -117,12 +148,19 @@ const currentPokemonInfo = (pokemon) => {
   // shrink pokemon container upon selecting pokemon
   let pokeContainer = document.getElementById("pokemon-container");
   pokeContainer.style.width = '50%'
-  sidebar.innerHTML = HTMLString + typeString
+  fetchPokemonDescription(pokemon.id.slice(1)).then((d) => {
+    // get rid of new line characters in string & check if desc text is english characters before rendering
+    let descStringParsed = d.description.replace(/(\n|\f)/gm, " ");
+    descString += `<p class="selected-card-description">${isTextEnglish(descStringParsed)}</p>`
+
+    // the final string for the whole card
+    sidebar.innerHTML = HTMLString + typeString + descString
+  })
 };
 
 // searchbar functionality
 function searchForPokemon() {
-  
+
   var searchBar, filter, pokeList, li, button, txtValue;
   searchBar = document.getElementById("search-bar");
   filter = searchBar.value.toUpperCase();

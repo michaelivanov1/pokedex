@@ -88,12 +88,10 @@ body {
     padding: 0px 40px 40px 40px;
     color: black;
     text-align: center;
-    background-color: lightgray;
     border: none;
-    box-shadow: 0 5px 10px rgb(0 0 0 / 0.1);
+    background: linear-gradient(#FFFFFF, lightgray);
     border-radius: 20px;
     width: 280px;
-    /* display: none; */
 }
 
 
@@ -137,7 +135,7 @@ body {
     border: 3px solid green;
 }
 
-.selected-card-full {
+/* .selected-card-full {
     height: 220px;
     list-style: none;
     padding: 0px 40px 40px 40px;
@@ -150,12 +148,12 @@ body {
     border-radius: 20px;
     padding-top: 10px;
     width: 280px;
-    /* border: 1px solid black; */
-}
+    border: 1px solid black; 
+} */
 
 .selected-card-image {
-    height: 200px;
-    width: 200px;
+    height: 240px;
+    width: 240px;
 }
 
 .selected-card-id {
@@ -165,13 +163,17 @@ body {
 .selected-card-title {}
 
 .selected-card-type {
-    background-color: lightblue;
     border: 1px solid black;
-    border-radius: 15px;
+    border-radius: 6px;
     margin-left: auto;
     margin-right: auto;
-    width: 40%;
+    width: 30%;
+    padding: 4px;
     margin-top: 6px;
+}
+
+.selected-card-description {
+    margin-top: 10px;
 }
 
 
