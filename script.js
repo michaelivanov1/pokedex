@@ -1,11 +1,11 @@
-const startTime = new Date();
 // fetch pokemon on page load
 const fetchPokemon = async () => {
   let pokeArray = [];
   try {
     renderLoading();
+    disableSidebarOnInitialLoad();
     // max count: 905
-    for (let i = 1; i <= 40; i++) {
+    for (let i = 1; i <= 100; i++) {
       const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
 
       await fetch(url).then((response) => {
@@ -66,6 +66,32 @@ const renderLoading = () => {
   ol.innerHTML = HTMLString;
 };
 
+// keep sidebar disabled until user clicks a pokemon in the grid
+const disableSidebarOnInitialLoad = () => {
+  let sidebar = document.getElementById("sidebar-container");
+  let pokeContainer = document.getElementById("pokemon-container");
+  sidebar.style.display = "none";
+  // keep pokemon container wide until a pokemon is selected
+  pokeContainer.style.width = "70%";
+};
+
+// fetch pokemon descriptions
+const fetchPokemonDescription = async (id) => {
+  let descString;
+  const url = `https://pokeapi.co/api/v2/pokemon-species/${id}`;
+
+  await fetch(url)
+    .then((response) => {
+      return response.json();
+    })
+    .then((desc) => {
+      descString = {
+        description: desc["flavor_text_entries"][0]["flavor_text"],
+      };
+    });
+  return descString;
+};
+
 // render pokemon cards
 const renderPokemon = (pokemon) => {
   const HTMLString = pokemon
@@ -75,7 +101,7 @@ const renderPokemon = (pokemon) => {
             <li class="card-li">
                 <img class="card-image" src="${p.image}"/>
                 <h3 class="card-id">${p.id}</h3>
-                <h2  class="card-title" >${p.name}</h2>
+                <h2 class="card-title" >${p.name}</h2>
                 <p class="card-type">${p.type}</p>
             </li>
         </button>
@@ -87,23 +113,57 @@ const renderPokemon = (pokemon) => {
   ol.innerHTML = HTMLString;
 };
 
-// the display that comes up for currently selected pokemon
-const currentPokemonInfo = (pokemon) => {
-  const HTMLString = `
-        <div class="selected-card-full"> 
-            <img class="selected-card-image" src="${pokemon.image}"/>
-            <h3 class="selected-card-id">${pokemon.id}</h3>
-            <h2 class="selected-card-title" >${pokemon.name}</h2>
-            <p class="selected-card-type">${pokemon.type}</p>
-        </div>
-        `;
-
-  let info = document.getElementById("pokemon-info");
-  info.innerHTML = HTMLString;
+// function to check if passed in text is english characters
+const isTextEnglish = (text) => {
+  let english = /^[A-Za-z0-9.,é]*$/;
+  const toArray = text.split(" ");
+  let toString = [];
+  for (let i = 0; i < toArray.length; i++) {
+    if (english.test(toArray[i])) {
+      toString.push(toArray[i]);
+    }
+  }
+  return toString.join(" ");
 };
 
+// the display that comes up for currently selected pokemon
+const currentPokemonInfo = (pokemon) => {
+  let splitTypes = pokemon.type.split(", ");
+  let typeString = "";
+  let descString = "";
+
+  const HTMLString = `   
+      <img class="selected-card-image" src="${pokemon.image}"/>
+      <h3 class="selected-card-id">${pokemon.id}</h3>
+      <h2 class="selected-card-title" >${pokemon.name}</h2>
+  `;
+
+  splitTypes.forEach((p) => {
+    typeString += `<p class="selected-card-type ${typeColorCodes(p)}">${
+      p.charAt(0).toUpperCase() + p.slice(1)
+    }</p>`;
+  });
+
+  // enable sidebar upon selected pokemon
+  let sidebar = document.getElementById("sidebar-container");
+  sidebar.style.display = "block";
+  // shrink pokemon container upon selecting pokemon
+  let pokeContainer = document.getElementById("pokemon-container");
+  pokeContainer.style.width = "50%";
+  fetchPokemonDescription(pokemon.id.slice(1)).then((d) => {
+    // get rid of new line characters in string & check if desc text is english characters before rendering
+    let descStringParsed = d.description.replace(/(\n|\f)/gm, " ");
+    descString += `<p class="selected-card-description">${isTextEnglish(
+      descStringParsed
+    )}</p>`;
+
+    // the final string for the whole card
+    sidebar.innerHTML = HTMLString + typeString + descString;
+  });
+};
+
+// searchbar functionality
 function searchForPokemon() {
-  // Declare variables
   var searchBar, filter, pokeList, li, button, txtValue;
   searchBar = document.getElementById("search-bar");
   filter = searchBar.value.toUpperCase();
@@ -111,7 +171,7 @@ function searchForPokemon() {
   li = pokeList.getElementsByTagName("li");
   button = pokeList.getElementsByTagName("button");
 
-  // Loop through all list items and filter them out
+  // loop through all list items and filter them out
   for (var i = 0; i < li.length; i++) {
     pokeName = li[i].getElementsByTagName("h2")[0];
     txtValue = pokeName.textContent || pokeName.innerText;
@@ -121,6 +181,31 @@ function searchForPokemon() {
       button[i].style.display = "none";
     }
   }
+}
+
+function typeColorCodes(pokemonType) {
+  let colorClass = "";
+
+  if (pokemonType == "normal") colorClass = "normal";
+  else if (pokemonType == "fire") colorClass = "fire";
+  else if (pokemonType == "water") colorClass = "water";
+  else if (pokemonType == "electric") colorClass = "electric";
+  else if (pokemonType == "grass") colorClass = "grass";
+  else if (pokemonType == "ice") colorClass = "ice";
+  else if (pokemonType == "fighting") colorClass = "fighting";
+  else if (pokemonType == "poison") colorClass = "poison";
+  else if (pokemonType == "ground") colorClass = "ground";
+  else if (pokemonType == "flying") colorClass = "flying";
+  else if (pokemonType == "psychic") colorClass = "psychic";
+  else if (pokemonType == "bug") colorClass = "bug";
+  else if (pokemonType == "rock") colorClass = "rock";
+  else if (pokemonType == "ghost") colorClass = "ghost";
+  else if (pokemonType == "dragon") colorClass = "dragon";
+  else if (pokemonType == "dark") colorClass = "dark";
+  else if (pokemonType == "steel") colorClass = "steel";
+  else if (pokemonType == "fairy") colorClass = "fairy";
+
+  return colorClass;
 }
 
 fetchPokemon();
