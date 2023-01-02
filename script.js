@@ -3,8 +3,9 @@ const fetchPokemon = async () => {
   let pokeArray = [];
   try {
     renderLoading();
+    disableSidebarOnInitialLoad();
     // max count: 905
-    for (let i = 1; i <= 905; i++) {
+    for (let i = 1; i <= 100; i++) {
       const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
 
       await fetch(url).then((response) => {
@@ -64,6 +65,15 @@ const renderLoading = () => {
   ol.innerHTML = HTMLString;
 };
 
+// keep sidebar disabled until user clicks a pokemon in the grid
+const disableSidebarOnInitialLoad = () => {
+  let sidebar = document.getElementById("sidebar-container");
+  let pokeContainer = document.getElementById("pokemon-container");
+  sidebar.style.display = 'none';
+  // keep pokemon container wide until a pokemon is selected
+  pokeContainer.style.width = '70%';
+}
+
 // render pokemon cards
 const renderPokemon = (pokemon) => {
   const HTMLString = pokemon
@@ -73,7 +83,7 @@ const renderPokemon = (pokemon) => {
             <li class="card-li">
                 <img class="card-image" src="${p.image}"/>
                 <h3 class="card-id">${p.id}</h3>
-                <h2  class="card-title" >${p.name}</h2>
+                <h2 class="card-title" >${p.name}</h2>
                 <p class="card-type">${p.type}</p>
             </li>
         </button>
@@ -101,12 +111,18 @@ const currentPokemonInfo = (pokemon) => {
     typeString += `<p class="selected-card-type ${typeColorCodes(p)}">${p}</p>`
   })
 
-  let info = document.getElementById("sidebar-container");
-  info.innerHTML = HTMLString + typeString
+  // enable sidebar upon selected pokemon
+  let sidebar = document.getElementById("sidebar-container");
+  sidebar.style.display = 'block'
+  // shrink pokemon container upon selecting pokemon
+  let pokeContainer = document.getElementById("pokemon-container");
+  pokeContainer.style.width = '50%'
+  sidebar.innerHTML = HTMLString + typeString
 };
 
+// searchbar functionality
 function searchForPokemon() {
-  // Declare variables
+  
   var searchBar, filter, pokeList, li, button, txtValue;
   searchBar = document.getElementById("search-bar");
   filter = searchBar.value.toUpperCase();
@@ -114,7 +130,7 @@ function searchForPokemon() {
   li = pokeList.getElementsByTagName("li");
   button = pokeList.getElementsByTagName("button");
 
-  // Loop through all list items and filter them out
+  // loop through all list items and filter them out
   for (var i = 0; i < li.length; i++) {
     pokeName = li[i].getElementsByTagName("h2")[0];
     txtValue = pokeName.textContent || pokeName.innerText;
@@ -125,17 +141,6 @@ function searchForPokemon() {
     }
   }
 }
-
-fetchPokemon();
-
-
-
-
-
-
-
-
-
 
 function typeColorCodes(pokemonType) {
   let colorClass = '';
@@ -161,3 +166,5 @@ function typeColorCodes(pokemonType) {
 
   return colorClass;
 }
+
+fetchPokemon();
