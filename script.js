@@ -77,18 +77,20 @@ const disableSidebarOnInitialLoad = () => {
 // fetch pokemon descriptions
 const fetchPokemonDescription = async (id) => {
 
-  let descString;
   const url = `https://pokeapi.co/api/v2/pokemon-species/${id}`;
+  let flavorDescEntry
 
   await fetch(url).then((response) => {
     return response.json()
   })
-    .then((desc) => {
-      descString = {
-        description: desc['flavor_text_entries'][0]['flavor_text']
-      }
+    .then((data) => {
+      const filteredDescription = data.flavor_text_entries.filter(
+        (element) => element.language.name === "en"
+      );
+      flavorDescEntry = filteredDescription.length > 0 ? filteredDescription[0] : {};
+      flavorDescEntry['flavor_text'] = flavorDescEntry['flavor_text'].replace(/(\n|\r|\f)/gm, " ")
     })
-  return descString
+  return flavorDescEntry['flavor_text']
 }
 
 // render pokemon cards
@@ -111,19 +113,6 @@ const renderPokemon = (pokemon) => {
   let ol = document.getElementById("pokedex");
   ol.innerHTML = HTMLString;
 };
-
-// function to check if passed in text is english characters
-const isTextEnglish = (text) => {
-  let english = /^[A-Za-z0-9.,é]*$/;
-  const toArray = text.split(' ');
-  let toString = [];
-  for (let i = 0; i < toArray.length; i++) {
-    if (english.test(toArray[i])) {
-      toString.push(toArray[i]);
-    }
-  }
-  return toString.join(" ");
-}
 
 // the display that comes up for currently selected pokemon
 const currentPokemonInfo = (pokemon) => {
@@ -149,9 +138,7 @@ const currentPokemonInfo = (pokemon) => {
   let pokeContainer = document.getElementById("pokemon-container");
   pokeContainer.style.width = '50%'
   fetchPokemonDescription(pokemon.id.slice(1)).then((d) => {
-    // get rid of new line characters in string & check if desc text is english characters before rendering
-    let descStringParsed = d.description.replace(/(\n|\f)/gm, " ");
-    descString += `<p class="selected-card-description">${isTextEnglish(descStringParsed)}</p>`
+    descString += `<p class="selected-card-description">${d}</p>`
 
     // the final string for the whole card
     sidebar.innerHTML = HTMLString + typeString + descString
