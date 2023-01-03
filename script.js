@@ -101,7 +101,6 @@ const fetchPokemonDescription = async (id) => {
 const renderPokemon = (pokemon) => {
   // check the types and make a html string for it
   let TypeOnPoke = [];
-  console.log(pokemon);
   let currTypes;
   pokemon.map((p) => {
     if (p.type.length > 1) {
@@ -115,7 +114,6 @@ const renderPokemon = (pokemon) => {
     }
     TypeOnPoke.push(currTypes);
   });
-  console.log(TypeOnPoke);
   const HTMLString = pokemon
     .map(
       (p) => `
