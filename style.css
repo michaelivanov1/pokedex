@@ -1,7 +1,7 @@
 * {
     margin: 0;
     font-family: Verdana, sans-serif;
-
+    font-weight: 600;
     /* not a bad font */
     /* font-family: 'Modern Sans', sans-serif; */
 }
@@ -11,7 +11,7 @@ body {
 }
 
 .full-container {
-    background-color: #FFFFFF;
+    background-color: white;
     min-height: 100vh;
     width: 100%;
 }
@@ -90,7 +90,7 @@ body {
     color: black;
     text-align: center;
     border: none;
-    background: linear-gradient(#FFFFFF, lightgray);
+    background: linear-gradient(#FFFFFF, #C2EDCE);
     border-radius: 20px;
     width: 280px;
 }
@@ -107,9 +107,10 @@ body {
     background-color: white;
     border: none;
     box-shadow: 0 5px 10px rgb(0 0 0 / 0.1);
-    border-radius: 30px;
-    padding-top: 10px;
-    width: 280px;
+    border-radius: 30px;  
+    background: url('/images/pokeball.png');
+    background-repeat: no-repeat;
+    background-size: 10ch;
 }
 
 .card-li {
@@ -170,16 +171,17 @@ body {
     border-radius: 6px;
     padding: 8px;
     margin: 6px 5px 0px 5px;
+    font-size: 14px;
 }
 
 .selected-card-description {
     margin-top: 10px;
+    font-size: 13px;
 }
 
 .selected-card-abilities-title {
     margin-top: 10px;
     margin-bottom: 10px;
-    font-weight: 600;
     font-size: 18px;
 }
 
@@ -188,7 +190,7 @@ body {
     border: 1px solid black;
     padding: 6px;
     border-radius: 10px;
-    font-size: 17px;
+    font-size: 13px;
     text-transform: capitalize;
     margin-bottom: 6px;
 }
@@ -199,7 +201,6 @@ body {
     justify-content: center;
     align-items: center;
     margin-top: 10px;
-    font-weight: 550;
     font-size: 14px;
     text-transform: uppercase;
 }
@@ -226,7 +227,6 @@ body {
 }
 
 @media only screen and (min-width: 1080px) and (max-width: 1340px) {
-
     #pokedex {
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         grid-gap: 30px;
@@ -278,6 +278,7 @@ body {
         width: 60%;
         margin-left: auto;
         margin-right: auto;
+        background: none;
     }
 
     .card-title {
