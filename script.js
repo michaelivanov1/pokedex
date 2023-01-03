@@ -151,7 +151,6 @@ const currentPokemonInfo = (pokemon) => {
   let abilitiesTitleString = "";
   let heightweightString = "";
 
-
   const HTMLString = `   
       <img class="selected-card-image" src="${pokemon.image}"/>
       <h3 class="selected-card-id">${pokemon.id}</h3>
@@ -180,8 +179,6 @@ const currentPokemonInfo = (pokemon) => {
     `
     })
 
-
-
     let heightweightTitleString = `
     <div class="selected-card-height-weight-title-container">
       <p class="height-title">Height</p>
@@ -194,11 +191,7 @@ const currentPokemonInfo = (pokemon) => {
       <p class="weight-data">${pokemon.weight / 10 + "kg"}</p>
     </div>
     `
-
     heightweightString = heightweightTitleString + heightweightDataString
-
-
-    // <p>${pokemon.height * 10 + "cm"} ${pokemon.weight / 10 + "kg"}</p>
 
     // the final string for the whole card
     sidebar.innerHTML = HTMLString + typeString + descString + abilitiesTitleString + heightweightString;
