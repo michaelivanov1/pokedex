@@ -20,10 +20,9 @@ const fetchPokemon = async () => {
           data.sprites.versions["generation-v"]["black-white"].animated[
             "front_default"
           ] || data.sprites["front_default"],
-        type: data.types.map((type) => type.type.name).join(", "),
+        type: data.types.map((type) => type.type.name),
         order: data.id,
       }));
-
       renderPokemon(parsePokemon);
     });
   } catch (err) {
@@ -46,7 +45,7 @@ const onPokemonClick = async (e) => {
         image:
           results.sprites.other["dream_world"]["front_default"] ||
           results.sprites["front_default"],
-        type: results.types.map((type) => type.type.name).join(", "),
+        type: results.types.map((type) => type.type.name),
         order: results.order,
       };
       currentPokemonInfo(currPokemon);
@@ -100,6 +99,23 @@ const fetchPokemonDescription = async (id) => {
 
 // render pokemon cards
 const renderPokemon = (pokemon) => {
+  // check the types and make a html string for it
+  let TypeOnPoke = [];
+  console.log(pokemon);
+  let currTypes;
+  pokemon.map((p) => {
+    if (p.type.length > 1) {
+      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])} ">${
+        p.type[0]
+      }</p><p class="card-type ${typeColorCodes(p.type[1])} ">${p.type[1]}</p>`;
+    } else {
+      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])}">${
+        p.type[0]
+      }</p>`;
+    }
+    TypeOnPoke.push(currTypes);
+  });
+  console.log(TypeOnPoke);
   const HTMLString = pokemon
     .map(
       (p) => `
@@ -108,7 +124,7 @@ const renderPokemon = (pokemon) => {
                 <img class="card-image" src="${p.image}"/>
                 <h3 class="card-id">${p.id}</h3>
                 <h2 class="card-title" >${p.name}</h2>
-                <p class="card-type">${p.type}</p>
+                ${TypeOnPoke[p.order - 1]}
             </li>
         </button>
         `
@@ -121,7 +137,6 @@ const renderPokemon = (pokemon) => {
 
 // the display that comes up for currently selected pokemon
 const currentPokemonInfo = (pokemon) => {
-  let splitTypes = pokemon.type.split(", ");
   let typeString = "";
   let descString = "";
 
@@ -131,7 +146,7 @@ const currentPokemonInfo = (pokemon) => {
       <h2 class="selected-card-title" >${pokemon.name}</h2>
   `;
 
-  splitTypes.forEach((p) => {
+  pokemon.type.forEach((p) => {
     typeString += `<p class="selected-card-type ${typeColorCodes(p)}">${
       p.charAt(0).toUpperCase() + p.slice(1)
     }</p>`;
