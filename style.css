@@ -1,6 +1,9 @@
 * {
     margin: 0;
-    font-family: sans-serif;
+    font-family: Verdana, sans-serif;
+
+    /* not a bad font */
+    /* font-family: 'Modern Sans', sans-serif; */
 }
 
 body {
@@ -28,8 +31,6 @@ body {
     border-radius: 25px;
     margin-bottom: 20px;
 }
-
-.title {}
 
 .search-container {
     border-radius: 25px;
@@ -84,7 +85,7 @@ body {
     margin-left: 20px;
     float: right;
     width: 360px;
-    height: 500px;
+    height: 600px;
     padding: 0px 40px 40px 40px;
     color: black;
     text-align: center;
@@ -97,7 +98,6 @@ body {
 
 
 /* BEGINNING OF JS REFERENCED CSS */
-
 .card-full {
     list-style: none;
     padding: 0px 10px 10px 10px;
@@ -107,7 +107,7 @@ body {
     background-color: white;
     border: none;
     box-shadow: 0 5px 10px rgb(0 0 0 / 0.1);
-    border-radius: 20px;
+    border-radius: 30px;
     padding-top: 10px;
     width: 280px;
 }
@@ -128,28 +128,25 @@ body {
     color: darkgray;
 }
 
-.card-title {}
-
-.card-type {
-    border-radius: 10px;
-    border: 3px solid green;
+.card-title {
+    text-transform: capitalize;
+    margin-top: 4px;
+    margin-bottom: 10px;
 }
 
-/* .selected-card-full {
-    height: 220px;
-    list-style: none;
-    padding: 0px 40px 40px 40px;
-    color: black;
-    text-align: center;
-    border-radius: 16%;
-    background-color: white;
-    border: none;
+.card-type {
+    font-family: 'Modern Sans', sans-serif;
+    text-transform: capitalize;
+    border-radius: 4px;
+    margin-top: 5px;
+    width: 80px;
+    height: 24px;
+    padding-top: 6px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 16px;
     box-shadow: 0 5px 10px rgb(0 0 0 / 0.1);
-    border-radius: 20px;
-    padding-top: 10px;
-    width: 280px;
-    border: 1px solid black; 
-} */
+}
 
 .selected-card-image {
     height: 240px;
@@ -160,22 +157,66 @@ body {
     color: darkgray;
 }
 
-.selected-card-title {}
+.selected-card-title {
+    text-transform: capitalize;
+}
+
+.selected-card-type-container {
+    display: inline-block;
+}
 
 .selected-card-type {
-    border: 1px solid black;
+    text-transform: capitalize;
     border-radius: 6px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 30%;
-    padding: 4px;
-    margin-top: 6px;
+    padding: 8px;
+    margin: 6px 5px 0px 5px;
 }
 
 .selected-card-description {
     margin-top: 10px;
 }
 
+.selected-card-abilities-title {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.selected-card-abilities-container {
+    display: inline-block;
+    border: 1px solid black;
+    padding: 6px;
+    border-radius: 10px;
+    font-size: 17px;
+    text-transform: capitalize;
+    margin-bottom: 6px;
+}
+
+.selected-card-height-weight-title-container, .selected-card-height-weight-data-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    font-weight: 550;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.height-title, .weight-title {
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.height-data, .weight-data {
+    margin-right: 10px;
+    margin-left: 10px;
+    background-color: #AFAFAF;
+    border-radius: 10px;
+    width: 100px;
+    height: 20px;
+}
 
 @media only screen and (max-width: 1300px) {
     .sidebar-container {
@@ -245,6 +286,7 @@ body {
 
     .card-type {
         font-size: 10px;
+        width: 70px;
     }
 
     .card-id {

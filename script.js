@@ -14,11 +14,11 @@ const fetchPokemon = async () => {
     }
     Promise.all(pokeArray).then((results) => {
       const parsePokemon = results.map((data) => ({
-        name: data.name.charAt(0).toUpperCase() + data.name.slice(1),
+        name: data.name,
         id: "#" + data.id,
         image:
           data.sprites.versions["generation-v"]["black-white"].animated[
-            "front_default"
+          "front_default"
           ] || data.sprites["front_default"],
         type: data.types.map((type) => type.type.name),
         order: data.id,
@@ -38,15 +38,18 @@ const onPokemonClick = async (e) => {
     await fetch(url).then((response) => {
       currJson = response.json();
     });
-    Promise.resolve(currJson).then((results) => {
+    Promise.resolve(currJson).then((data) => {
       const currPokemon = {
-        name: results.name.charAt(0).toUpperCase() + results.name.slice(1),
-        id: "#" + results.id,
+        name: data.name,
+        id: "#" + data.id,
         image:
-          results.sprites.other["dream_world"]["front_default"] ||
-          results.sprites["front_default"],
-        type: results.types.map((type) => type.type.name),
-        order: results.order,
+          data.sprites.other["dream_world"]["front_default"] ||
+          data.sprites["front_default"],
+        type: data.types.map((type) => type.type.name),
+        order: data.order,
+        abilities: data.abilities.map((ability) => ability.ability.name),
+        height: data.height,
+        weight: data.weight
       };
       currentPokemonInfo(currPokemon);
     });
@@ -104,13 +107,11 @@ const renderPokemon = (pokemon) => {
   let currTypes;
   pokemon.map((p) => {
     if (p.type.length > 1) {
-      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])} ">${
-        p.type[0]
-      }</p><p class="card-type ${typeColorCodes(p.type[1])} ">${p.type[1]}</p>`;
+      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])} ">${p.type[0]
+        }</p><p class="card-type ${typeColorCodes(p.type[1])} ">${p.type[1]}</p>`;
     } else {
-      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])}">${
-        p.type[0]
-      }</p>`;
+      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])}">${p.type[0]
+        }</p>`;
     }
     TypeOnPoke.push(currTypes);
   });
@@ -121,7 +122,7 @@ const renderPokemon = (pokemon) => {
             <li class="card-li">
                 <img class="card-image" src="${p.image}"/>
                 <h3 class="card-id">${p.id}</h3>
-                <h2 class="card-title" >${p.name}</h2>
+                <h2 class="card-title">${p.name}</h2>
                 ${TypeOnPoke[p.order - 1]}
             </li>
         </button>
@@ -133,10 +134,23 @@ const renderPokemon = (pokemon) => {
   ol.innerHTML = HTMLString;
 };
 
+const pokemonSidebarStyling = () => {
+  // enable sidebar upon selected pokemon
+  let sidebar = document.getElementById("sidebar-container");
+  sidebar.style.display = "block";
+  // shrink pokemon container upon selecting pokemon
+  let pokeContainer = document.getElementById("pokemon-container");
+  pokeContainer.style.width = "50%";
+}
+
 // the display that comes up for currently selected pokemon
 const currentPokemonInfo = (pokemon) => {
+  let sidebar = document.getElementById("sidebar-container");
   let typeString = "";
   let descString = "";
+  let abilitiesTitleString = "";
+  let heightweightString = "";
+
 
   const HTMLString = `   
       <img class="selected-card-image" src="${pokemon.image}"/>
@@ -145,22 +159,49 @@ const currentPokemonInfo = (pokemon) => {
   `;
 
   pokemon.type.forEach((p) => {
-    typeString += `<p class="selected-card-type ${typeColorCodes(p)}">${
-      p.charAt(0).toUpperCase() + p.slice(1)
-    }</p>`;
+    typeString += `
+    <div class="selected-card-type-container">
+      <p class="selected-card-type ${typeColorCodes(p)}">${p}</p>
+    </div>
+    `;
   });
 
-  // enable sidebar upon selected pokemon
-  let sidebar = document.getElementById("sidebar-container");
-  sidebar.style.display = "block";
-  // shrink pokemon container upon selecting pokemon
-  let pokeContainer = document.getElementById("pokemon-container");
-  pokeContainer.style.width = "50%";
+  pokemonSidebarStyling();
+
   fetchPokemonDescription(pokemon.id.slice(1)).then((d) => {
     descString += `<p class="selected-card-description">${d}</p>`;
+    abilitiesTitleString += `<p class="selected-card-abilities-title">Abilities</p>`
+    pokemon.abilities.forEach((a) => {
+      abilitiesTitleString +=
+        `
+        <div class="selected-card-abilities-container"
+      <p>${a}</p>
+      </div>
+    `
+    })
+
+
+
+    let heightweightTitleString = `
+    <div class="selected-card-height-weight-title-container">
+      <p class="height-title">Height</p>
+      <p class="weight-title">Weight</p>
+    </div>
+    `
+    let heightweightDataString = `
+    <div class="selected-card-height-weight-data-container">
+      <p class="height-data">${pokemon.height * 10 >= 100 ? pokemon.height / 10 + "m" : pokemon.height * 10 + "cm"}</p>
+      <p class="weight-data">${pokemon.weight / 10 + "kg"}</p>
+    </div>
+    `
+
+    heightweightString = heightweightTitleString + heightweightDataString
+
+
+    // <p>${pokemon.height * 10 + "cm"} ${pokemon.weight / 10 + "kg"}</p>
 
     // the final string for the whole card
-    sidebar.innerHTML = HTMLString + typeString + descString;
+    sidebar.innerHTML = HTMLString + typeString + descString + abilitiesTitleString + heightweightString;
   });
 };
 
