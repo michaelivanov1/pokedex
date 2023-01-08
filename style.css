@@ -69,6 +69,7 @@ body {
     background-color: #F6F8FC;
     padding: 20px;
     overflow-x: hidden;
+    height: 70vh;
 }
 
 #pokedex {
