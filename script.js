@@ -1,29 +1,51 @@
 // fetch pokemon on page load
 const fetchPokemon = async () => {
+  renderLoading();
+  disableSidebarOnInitialLoad();
+  queueAPIPokemon(0);
+};
+
+const defineAPIPokemon = async (queueList) => {
   let pokeArray = [];
   try {
-    renderLoading();
-    disableSidebarOnInitialLoad();
-    // max count: 905
-    for (let i = 1; i <= 100; i++) {
-      const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
-
-      await fetch(url).then((response) => {
+    queueList.pokeUrl.forEach(async (p) => {
+      await fetch(p).then((response) => {
         pokeArray.push(response.json());
       });
-    }
+    });
     Promise.all(pokeArray).then((results) => {
       const parsePokemon = results.map((data) => ({
         name: data.name,
         id: "#" + data.id,
         image:
           data.sprites.versions["generation-v"]["black-white"].animated[
-          "front_default"
+            "front_default"
           ] || data.sprites["front_default"],
         type: data.types.map((type) => type.type.name),
         order: data.id,
       }));
+      console.log(results);
       renderPokemon(parsePokemon);
+      let moreBtn = document.getElementById("pokemon-more-button");
+      moreBtn.style.display = "";
+    });
+  } catch (err) {
+    console.error(`error fetching from api: ${err}`);
+  }
+};
+
+const queueAPIPokemon = async (offset) => {
+  let pokemonQueue;
+  try {
+    const url = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=100`;
+    await fetch(url).then((response) => {
+      pokemonQueue = response.json();
+    });
+    Promise.resolve(pokemonQueue).then((data) => {
+      const parsePokemon = {
+        pokeUrl: data.results.map((poke) => poke.url),
+      };
+      defineAPIPokemon(parsePokemon);
     });
   } catch (err) {
     console.error(`error fetching from api: ${err}`);
@@ -49,13 +71,20 @@ const onPokemonClick = async (e) => {
         order: data.order,
         abilities: data.abilities.map((ability) => ability.ability.name),
         height: data.height,
-        weight: data.weight
+        weight: data.weight,
       };
       currentPokemonInfo(currPokemon);
     });
   } catch (err) {
     console.error(`error fetching from api: ${err}`);
   }
+};
+
+//fired upon clicking the clicking more
+const onMoreClick = async (e) => {
+  let moreBtn = document.getElementById("pokemon-more-button");
+  let currPokemons = document.getElementsByClassName("card-id");
+  queueAPIPokemon(currPokemons.length);
 };
 
 // run animation while pokemon are loading
@@ -66,6 +95,8 @@ const renderLoading = () => {
 
   let ol = document.getElementById("pokedex");
   ol.innerHTML = HTMLString;
+  let moreBtn = document.getElementById("pokemon-more-button");
+  moreBtn.style.display = "none";
 };
 
 // keep sidebar disabled until user clicks a pokemon in the grid
@@ -107,11 +138,13 @@ const renderPokemon = (pokemon) => {
   let currTypes;
   pokemon.map((p) => {
     if (p.type.length > 1) {
-      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])} ">${p.type[0]
-        }</p><p class="card-type ${typeColorCodes(p.type[1])} ">${p.type[1]}</p>`;
+      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])} ">${
+        p.type[0]
+      }</p><p class="card-type ${typeColorCodes(p.type[1])} ">${p.type[1]}</p>`;
     } else {
-      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])}">${p.type[0]
-        }</p>`;
+      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])}">${
+        p.type[0]
+      }</p>`;
     }
     TypeOnPoke.push(currTypes);
   });
@@ -141,7 +174,7 @@ const pokemonSidebarStyling = () => {
   // shrink pokemon container upon selecting pokemon
   let pokeContainer = document.getElementById("pokemon-container");
   pokeContainer.style.width = "50%";
-}
+};
 
 // the display that comes up for currently selected pokemon
 const currentPokemonInfo = (pokemon) => {
@@ -169,32 +202,40 @@ const currentPokemonInfo = (pokemon) => {
 
   fetchPokemonDescription(pokemon.id.slice(1)).then((d) => {
     descString += `<p class="selected-card-description">${d}</p>`;
-    abilitiesTitleString += `<p class="selected-card-abilities-title">Abilities</p>`
+    abilitiesTitleString += `<p class="selected-card-abilities-title">Abilities</p>`;
     pokemon.abilities.forEach((a) => {
-      abilitiesTitleString +=
-        `
+      abilitiesTitleString += `
         <div class="selected-card-abilities-container"
       <p>${a}</p>
       </div>
-    `
-    })
+    `;
+    });
 
     let heightweightTitleString = `
     <div class="selected-card-height-weight-title-container">
       <p class="height-title">Height</p>
       <p class="weight-title">Weight</p>
     </div>
-    `
+    `;
     let heightweightDataString = `
     <div class="selected-card-height-weight-data-container">
-      <p class="height-data">${pokemon.height * 10 >= 100 ? pokemon.height / 10 + "m" : pokemon.height * 10 + "cm"}</p>
+      <p class="height-data">${
+        pokemon.height * 10 >= 100
+          ? pokemon.height / 10 + "m"
+          : pokemon.height * 10 + "cm"
+      }</p>
       <p class="weight-data">${pokemon.weight / 10 + "kg"}</p>
     </div>
-    `
-    heightweightString = heightweightTitleString + heightweightDataString
+    `;
+    heightweightString = heightweightTitleString + heightweightDataString;
 
     // the final string for the whole card
-    sidebar.innerHTML = HTMLString + typeString + descString + abilitiesTitleString + heightweightString;
+    sidebar.innerHTML =
+      HTMLString +
+      typeString +
+      descString +
+      abilitiesTitleString +
+      heightweightString;
   });
 };
 
