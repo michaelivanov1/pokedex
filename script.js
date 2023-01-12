@@ -1,20 +1,23 @@
+//global vars
+let TypeOnPoke = [];
 // fetch pokemon on page load
 const fetchPokemon = async () => {
   renderLoading();
   disableSidebarOnInitialLoad();
+  // console.log(firstList);
   queueAPIPokemon(0);
 };
 
 const defineAPIPokemon = async (queueList) => {
   let pokeArray = [];
   try {
-    queueList.pokeUrl.forEach(async (p) => {
-      await fetch(p).then((response) => {
+    for (var i = 0; i <= queueList.pokeUrl.length - 1; ++i) {
+      await fetch(queueList.pokeUrl[i]).then((response) => {
         pokeArray.push(response.json());
       });
-    });
+    }
     Promise.all(pokeArray).then((results) => {
-      const parsePokemon = results.map((data) => ({
+      let parsePokemon = results.map((data) => ({
         name: data.name,
         id: "#" + data.id,
         image:
@@ -24,7 +27,6 @@ const defineAPIPokemon = async (queueList) => {
         type: data.types.map((type) => type.type.name),
         order: data.id,
       }));
-      console.log(results);
       renderPokemon(parsePokemon);
       let moreBtn = document.getElementById("pokemon-more-button");
       moreBtn.style.display = "";
@@ -41,8 +43,9 @@ const queueAPIPokemon = async (offset) => {
     await fetch(url).then((response) => {
       pokemonQueue = response.json();
     });
+    var parsePokemon;
     Promise.resolve(pokemonQueue).then((data) => {
-      const parsePokemon = {
+      parsePokemon = {
         pokeUrl: data.results.map((poke) => poke.url),
       };
       defineAPIPokemon(parsePokemon);
@@ -84,6 +87,7 @@ const onPokemonClick = async (e) => {
 const onMoreClick = async (e) => {
   let moreBtn = document.getElementById("pokemon-more-button");
   let currPokemons = document.getElementsByClassName("card-id");
+  console.log(currPokemons.length);
   queueAPIPokemon(currPokemons.length);
 };
 
@@ -134,7 +138,6 @@ const fetchPokemonDescription = async (id) => {
 // render pokemon cards
 const renderPokemon = (pokemon) => {
   // check the types and make a html string for it
-  let TypeOnPoke = [];
   let currTypes;
   pokemon.map((p) => {
     if (p.type.length > 1) {
@@ -148,7 +151,7 @@ const renderPokemon = (pokemon) => {
     }
     TypeOnPoke.push(currTypes);
   });
-  const HTMLString = pokemon
+  HTMLString = pokemon
     .map(
       (p) => `
         <button class="card-full" onclick=onPokemonClick(this) id="${p.order}">
@@ -164,7 +167,7 @@ const renderPokemon = (pokemon) => {
     .join("");
 
   let ol = document.getElementById("pokedex");
-  ol.innerHTML = HTMLString;
+  ol.innerHTML += HTMLString;
 };
 
 const pokemonSidebarStyling = () => {
