@@ -49,7 +49,9 @@ const onPokemonClick = async (e) => {
         order: data.order,
         abilities: data.abilities.map((ability) => ability.ability.name),
         height: data.height,
-        weight: data.weight
+        weight: data.weight,
+        base_stat: data.stats.map((stat) => stat.base_stat),
+        stat_name: data.stats.map((stat) => stat.stat.name)
       };
       currentPokemonInfo(currPokemon);
     });
@@ -61,7 +63,7 @@ const onPokemonClick = async (e) => {
 // run animation while pokemon are loading
 const renderLoading = () => {
   const HTMLString = `
-        <h1>loading...</h1>
+        <h1>Fetching Pokèmon...</h1>
         `;
 
   let ol = document.getElementById("pokedex");
@@ -143,13 +145,26 @@ const pokemonSidebarStyling = () => {
   pokeContainer.style.width = "50%";
 }
 
+const shortenPokemonStatName = (stat_name) => {
+  let statsArray = []
+
+  stat_name.forEach((s) => {
+    if (s == "hp") statsArray.push("HP")
+    else if (s == "attack") statsArray.push("ATK")
+    else if (s == "defense") statsArray.push("DEF")
+    else if (s == "special-attack") statsArray.push("SpA")
+    else if (s == "special-defense") statsArray.push("SpD")
+    else if (s == "speed") statsArray.push("SPD")
+  })
+  return statsArray
+}
+
 // the display that comes up for currently selected pokemon
 const currentPokemonInfo = (pokemon) => {
   let sidebar = document.getElementById("sidebar-container");
   let typeString = "";
   let descString = "";
   let abilitiesTitleString = "";
-  let heightweightString = "";
 
   const HTMLString = `   
       <img class="selected-card-image" src="${pokemon.image}"/>
@@ -179,22 +194,31 @@ const currentPokemonInfo = (pokemon) => {
     `
     })
 
-    let heightweightTitleString = `
+    let heightweightDataString = `
     <div class="selected-card-height-weight-title-container">
       <p class="height-title">Height</p>
       <p class="weight-title">Weight</p>
     </div>
-    `
-    let heightweightDataString = `
     <div class="selected-card-height-weight-data-container">
       <p class="height-data">${pokemon.height * 10 >= 100 ? pokemon.height / 10 + "m" : pokemon.height * 10 + "cm"}</p>
       <p class="weight-data">${pokemon.weight / 10 + "kg"}</p>
     </div>
     `
-    heightweightString = heightweightTitleString + heightweightDataString
+    
+    let shortenedStats = shortenPokemonStatName(pokemon.stat_name)
+
+    let statsString = ''
+    for (let i = 0; i < shortenedStats.length; i++) {
+      statsString += `
+        <div class="selected-card-stats-full-container">
+          <p class="stats-name">${shortenedStats[i]}</p>
+          <p class="stats-value">${pokemon.base_stat[i]}</p>
+        </div>
+      `
+    }
 
     // the final string for the whole card
-    sidebar.innerHTML = HTMLString + typeString + descString + abilitiesTitleString + heightweightString;
+    sidebar.innerHTML = HTMLString + typeString + descString + abilitiesTitleString + heightweightDataString + statsString;
   });
 };
 
