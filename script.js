@@ -19,14 +19,13 @@ const fetchPokemon = async () => {
         id: "#" + data.id,
         image:
           data.sprites.versions["generation-v"]["black-white"].animated[
-          "front_default"
+            "front_default"
           ] || data.sprites["front_default"],
         type: data.types.map((type) => type.type.name),
         order: data.id,
       }));
       renderPokemon(parsePokemon);
     });
-
   } catch (err) {
     console.error(`error fetching from api: ${err}`);
   }
@@ -53,7 +52,7 @@ const onPokemonClick = async (e) => {
         height: data.height,
         weight: data.weight,
         base_stat: data.stats.map((stat) => stat.base_stat),
-        stat_name: data.stats.map((stat) => stat.stat.name)
+        stat_name: data.stats.map((stat) => stat.stat.name),
       };
       currentPokemonInfo(currPokemon);
     });
@@ -92,11 +91,13 @@ const renderPokemon = (pokemon) => {
   let currTypes;
   pokemon.map((p) => {
     if (p.type.length > 1) {
-      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])} ">${p.type[0]
-        }</p><p class="card-type ${typeColorCodes(p.type[1])} ">${p.type[1]}</p>`;
+      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])} ">${
+        p.type[0]
+      }</p><p class="card-type ${typeColorCodes(p.type[1])} ">${p.type[1]}</p>`;
     } else {
-      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])}">${p.type[0]
-        }</p>`;
+      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])}">${
+        p.type[0]
+      }</p>`;
     }
     TypeOnPoke.push(currTypes);
   });
@@ -118,7 +119,6 @@ const renderPokemon = (pokemon) => {
   let ol = document.getElementById("pokedex");
   ol.innerHTML = HTMLString;
 };
-
 
 // the display that comes up for currently selected pokemon
 const currentPokemonInfo = (pokemon) => {
@@ -146,14 +146,14 @@ const currentPokemonInfo = (pokemon) => {
 
   fetchPokemonDescription(pokemon.id.slice(1)).then((d) => {
     descString += `<p class="selected-card-description">${d}</p>`;
-    abilitiesTitleString += `<p class="selected-card-abilities-title">Abilities</p>`
+    abilitiesTitleString += `<p class="selected-card-abilities-title">Abilities</p>`;
     pokemon.abilities.forEach((a) => {
       abilitiesTitleString += `
         <div class="selected-card-abilities-container"
           <p>${a}</p>
         </div>
-      `
-    })
+      `;
+    });
 
     let heightweightDataString = `
     <div class="selected-card-height-weight-title-container">
@@ -161,25 +161,37 @@ const currentPokemonInfo = (pokemon) => {
       <p class="weight-title">Weight</p>
     </div>
     <div class="selected-card-height-weight-data-container">
-      <p class="height-data">${pokemon.height * 10 >= 100 ? pokemon.height / 10 + "m" : pokemon.height * 10 + "cm"}</p>
+      <p class="height-data">${
+        pokemon.height * 10 >= 100
+          ? pokemon.height / 10 + "m"
+          : pokemon.height * 10 + "cm"
+      }</p>
       <p class="weight-data">${pokemon.weight / 10 + "kg"}</p>
     </div>
-    `
+    `;
 
-    let shortenedStats = shortenPokemonStatName(pokemon.stat_name)
-    let statsTitleString = `<p class="selected-card-stat-title">Stats</p>`
+    let shortenedStats = shortenPokemonStatName(pokemon.stat_name);
+    let statsTitleString = `<p class="selected-card-stat-title">Stats</p>`;
     for (let i = 0; i < shortenedStats.length; i++) {
       statsString += `
         <div class="selected-card-stats-full-container">
-          <p class="stats-name ${statColorCodes(shortenedStats[i])}">${shortenedStats[i]}</p>
+          <p class="stats-name ${statColorCodes(shortenedStats[i])}">${
+        shortenedStats[i]
+      }</p>
           <p class="stats-value">${pokemon.base_stat[i]}</p>
         </div>
-      `
+      `;
     }
-    let statsFullString = statsTitleString + statsString
+    let statsFullString = statsTitleString + statsString;
 
     // the final string for the whole card
-    sidebar.innerHTML = HTMLString + typeString + descString + abilitiesTitleString + heightweightDataString + statsFullString;
+    sidebar.innerHTML =
+      HTMLString +
+      typeString +
+      descString +
+      abilitiesTitleString +
+      heightweightDataString +
+      statsFullString;
   });
 };
 
@@ -202,7 +214,7 @@ const searchForPokemon = () => {
       button[i].style.display = "none";
     }
   }
-}
+};
 
 /* HELPER FUNCTIONS */
 
@@ -230,21 +242,21 @@ const typeColorCodes = (pokemonType) => {
   else if (pokemonType == "fairy") colorClass = "fairy";
 
   return colorClass;
-}
+};
 
 // set color code classes based on pokemon stat
 const statColorCodes = (pokemonStatName) => {
   let colorClass = "";
 
-  if (pokemonStatName == "HP") colorClass = "hp"
-  else if (pokemonStatName == "ATK") colorClass = "attack"
-  else if (pokemonStatName == "DEF") colorClass = "defense"
-  else if (pokemonStatName == "SpA") colorClass = "special-attack"
-  else if (pokemonStatName == "SpD") colorClass = "special-defense"
-  else if (pokemonStatName == "SPD") colorClass = "speed"
+  if (pokemonStatName == "HP") colorClass = "hp";
+  else if (pokemonStatName == "ATK") colorClass = "attack";
+  else if (pokemonStatName == "DEF") colorClass = "defense";
+  else if (pokemonStatName == "SpA") colorClass = "special-attack";
+  else if (pokemonStatName == "SpD") colorClass = "special-defense";
+  else if (pokemonStatName == "SPD") colorClass = "speed";
 
   return colorClass;
-}
+};
 
 // expand/shrink pokemon container & sidebar
 const pokemonSidebarStyling = () => {
@@ -255,22 +267,22 @@ const pokemonSidebarStyling = () => {
   // shrink pokemon container upon selecting pokemon
   let pokeContainer = document.getElementById("pokemon-container");
   pokeContainer.style.width = "50%";
-}
+};
 
 // abbreviate pokemon stat names
 const shortenPokemonStatName = (stat_name) => {
-  let statsArray = []
+  let statsArray = [];
 
   stat_name.forEach((s) => {
-    if (s == "hp") statsArray.push("HP")
-    else if (s == "attack") statsArray.push("ATK")
-    else if (s == "defense") statsArray.push("DEF")
-    else if (s == "special-attack") statsArray.push("SpA")
-    else if (s == "special-defense") statsArray.push("SpD")
-    else if (s == "speed") statsArray.push("SPD")
-  })
-  return statsArray
-}
+    if (s == "hp") statsArray.push("HP");
+    else if (s == "attack") statsArray.push("ATK");
+    else if (s == "defense") statsArray.push("DEF");
+    else if (s == "special-attack") statsArray.push("SpA");
+    else if (s == "special-defense") statsArray.push("SpD");
+    else if (s == "speed") statsArray.push("SPD");
+  });
+  return statsArray;
+};
 
 // run animation while pokemon are loading
 const renderLoading = () => {
