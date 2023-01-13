@@ -4,8 +4,9 @@ let TypeOnPoke = [];
 const fetchPokemon = async () => {
   renderLoading();
   disableSidebarOnInitialLoad();
-  // console.log(firstList);
-  queueAPIPokemon(0);
+  let queuedPokemon = await queueAPIPokemon(0);
+  console.log(queuedPokemon);
+  //defineAPIPokemon();
 };
 
 const defineAPIPokemon = async (queueList) => {
@@ -38,17 +39,21 @@ const defineAPIPokemon = async (queueList) => {
 
 const queueAPIPokemon = async (offset) => {
   let pokemonQueue;
+  var parsePokemon;
   try {
     const url = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=100`;
     await fetch(url).then((response) => {
       pokemonQueue = response.json();
     });
-    var parsePokemon;
+
     Promise.resolve(pokemonQueue).then((data) => {
       parsePokemon = {
         pokeUrl: data.results.map((poke) => poke.url),
       };
-      defineAPIPokemon(parsePokemon);
+
+      document.cookie += parsePokemon;
+      console.log(parsePokemon.pokeUrl);
+      return parsePokemon.pokeUrl;
     });
   } catch (err) {
     console.error(`error fetching from api: ${err}`);
@@ -151,7 +156,7 @@ const renderPokemon = (pokemon) => {
     }
     TypeOnPoke.push(currTypes);
   });
-  HTMLString = pokemon
+  const HTMLString = pokemon
     .map(
       (p) => `
         <button class="card-full" onclick=onPokemonClick(this) id="${p.order}">
@@ -167,7 +172,7 @@ const renderPokemon = (pokemon) => {
     .join("");
 
   let ol = document.getElementById("pokedex");
-  ol.innerHTML += HTMLString;
+  ol.innerHTML = HTMLString;
 };
 
 const pokemonSidebarStyling = () => {
