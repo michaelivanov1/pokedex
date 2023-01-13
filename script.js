@@ -146,12 +146,11 @@ const currentPokemonInfo = (pokemon) => {
     descString += `<p class="selected-card-description">${d}</p>`;
     abilitiesTitleString += `<p class="selected-card-abilities-title">Abilities</p>`
     pokemon.abilities.forEach((a) => {
-      abilitiesTitleString +=
-        `
+      abilitiesTitleString += `
         <div class="selected-card-abilities-container"
-      <p>${a}</p>
-      </div>
-    `
+          <p>${a}</p>
+        </div>
+      `
     })
 
     let heightweightDataString = `
@@ -168,7 +167,6 @@ const currentPokemonInfo = (pokemon) => {
     let shortenedStats = shortenPokemonStatName(pokemon.stat_name)
     let statsTitleString = `<p class="selected-card-stat-title">Stats</p>`
     for (let i = 0; i < shortenedStats.length; i++) {
-      console.log(statColorCodes(shortenedStats[i]))
       statsString += `
         <div class="selected-card-stats-full-container">
           <p class="stats-name ${statColorCodes(shortenedStats[i])}">${shortenedStats[i]}</p>
@@ -251,6 +249,7 @@ const pokemonSidebarStyling = () => {
   // enable sidebar upon selected pokemon
   let sidebar = document.getElementById("sidebar-container");
   sidebar.style.display = "block";
+  sidebar.style.width = "18%";
   // shrink pokemon container upon selecting pokemon
   let pokeContainer = document.getElementById("pokemon-container");
   pokeContainer.style.width = "50%";

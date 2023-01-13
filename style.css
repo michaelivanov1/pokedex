@@ -177,6 +177,8 @@ body {
 
 .selected-card-description {
     margin-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
     font-size: 13px;
 }
 
@@ -193,7 +195,7 @@ body {
     border-radius: 10px;
     font-size: 13px;
     text-transform: capitalize;
-    margin-bottom: 6px;
+    margin-bottom: 10px;
 }
 
 .selected-card-height-weight-title-container, .selected-card-height-weight-data-container {
@@ -201,7 +203,7 @@ body {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin-top: 10px;
+    margin-top: 6px;
     font-size: 14px;
     text-transform: uppercase;
 }
@@ -227,7 +229,7 @@ body {
 
 .selected-card-stats-full-container {
     display: inline-block;
-    border: 1px solid black;
+    box-shadow: 0 5px 10px rgb(0 0 0 / 0.3);
     margin-top: 10px;
     border-radius: 10px;
     width: 14%;
@@ -241,7 +243,6 @@ body {
     margin-top: 10%;
     font-size: 11px;
     border-radius: 10px;
-    border: 1px solid black;
     width: 70%;
     height: 35%;
     margin-left: auto;
