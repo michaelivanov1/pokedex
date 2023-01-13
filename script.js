@@ -12,8 +12,14 @@ const fetchPokemon = async () => {
 const defineAPIPokemon = async (queueList) => {
   let pokeArray = [];
   try {
-    for (var i = 0; i <= queueList.pokeUrl.length - 1; ++i) {
-      await fetch(queueList.pokeUrl[i]).then((response) => {
+    renderLoading();
+    disableSidebarOnInitialLoad();
+
+    // max count: 905
+    for (let i = 1; i <= 905; i++) {
+      const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
+
+      await fetch(url).then((response) => {
         pokeArray.push(response.json());
       });
     }
@@ -55,6 +61,7 @@ const queueAPIPokemon = async (offset) => {
       console.log(parsePokemon.pokeUrl);
       return parsePokemon.pokeUrl;
     });
+
   } catch (err) {
     console.error(`error fetching from api: ${err}`);
   }
@@ -80,6 +87,11 @@ const onPokemonClick = async (e) => {
         abilities: data.abilities.map((ability) => ability.ability.name),
         height: data.height,
         weight: data.weight,
+<<<<<<< HEAD
+=======
+        base_stat: data.stats.map((stat) => stat.base_stat),
+        stat_name: data.stats.map((stat) => stat.stat.name)
+>>>>>>> a50866998c360f56f6335bd62f77328de0e7b08c
       };
       currentPokemonInfo(currPokemon);
     });
@@ -88,6 +100,7 @@ const onPokemonClick = async (e) => {
   }
 };
 
+<<<<<<< HEAD
 //fired upon clicking the clicking more
 const onMoreClick = async (e) => {
   let moreBtn = document.getElementById("pokemon-more-button");
@@ -117,6 +130,8 @@ const disableSidebarOnInitialLoad = () => {
   pokeContainer.style.width = "70%";
 };
 
+=======
+>>>>>>> a50866998c360f56f6335bd62f77328de0e7b08c
 // fetch pokemon descriptions
 const fetchPokemonDescription = async (id) => {
   const url = `https://pokeapi.co/api/v2/pokemon-species/${id}`;
@@ -175,6 +190,7 @@ const renderPokemon = (pokemon) => {
   ol.innerHTML = HTMLString;
 };
 
+<<<<<<< HEAD
 const pokemonSidebarStyling = () => {
   // enable sidebar upon selected pokemon
   let sidebar = document.getElementById("sidebar-container");
@@ -183,6 +199,8 @@ const pokemonSidebarStyling = () => {
   let pokeContainer = document.getElementById("pokemon-container");
   pokeContainer.style.width = "50%";
 };
+=======
+>>>>>>> a50866998c360f56f6335bd62f77328de0e7b08c
 
 // the display that comes up for currently selected pokemon
 const currentPokemonInfo = (pokemon) => {
@@ -190,7 +208,7 @@ const currentPokemonInfo = (pokemon) => {
   let typeString = "";
   let descString = "";
   let abilitiesTitleString = "";
-  let heightweightString = "";
+  let statsString = "";
 
   const HTMLString = `   
       <img class="selected-card-image" src="${pokemon.image}"/>
@@ -214,18 +232,28 @@ const currentPokemonInfo = (pokemon) => {
     pokemon.abilities.forEach((a) => {
       abilitiesTitleString += `
         <div class="selected-card-abilities-container"
+<<<<<<< HEAD
       <p>${a}</p>
       </div>
     `;
     });
+=======
+          <p>${a}</p>
+        </div>
+      `
+    })
+>>>>>>> a50866998c360f56f6335bd62f77328de0e7b08c
 
-    let heightweightTitleString = `
+    let heightweightDataString = `
     <div class="selected-card-height-weight-title-container">
       <p class="height-title">Height</p>
       <p class="weight-title">Weight</p>
     </div>
+<<<<<<< HEAD
     `;
     let heightweightDataString = `
+=======
+>>>>>>> a50866998c360f56f6335bd62f77328de0e7b08c
     <div class="selected-card-height-weight-data-container">
       <p class="height-data">${
         pokemon.height * 10 >= 100
@@ -234,6 +262,7 @@ const currentPokemonInfo = (pokemon) => {
       }</p>
       <p class="weight-data">${pokemon.weight / 10 + "kg"}</p>
     </div>
+<<<<<<< HEAD
     `;
     heightweightString = heightweightTitleString + heightweightDataString;
 
@@ -244,11 +273,29 @@ const currentPokemonInfo = (pokemon) => {
       descString +
       abilitiesTitleString +
       heightweightString;
+=======
+    `
+
+    let shortenedStats = shortenPokemonStatName(pokemon.stat_name)
+    let statsTitleString = `<p class="selected-card-stat-title">Stats</p>`
+    for (let i = 0; i < shortenedStats.length; i++) {
+      statsString += `
+        <div class="selected-card-stats-full-container">
+          <p class="stats-name ${statColorCodes(shortenedStats[i])}">${shortenedStats[i]}</p>
+          <p class="stats-value">${pokemon.base_stat[i]}</p>
+        </div>
+      `
+    }
+    let statsFullString = statsTitleString + statsString
+
+    // the final string for the whole card
+    sidebar.innerHTML = HTMLString + typeString + descString + abilitiesTitleString + heightweightDataString + statsFullString;
+>>>>>>> a50866998c360f56f6335bd62f77328de0e7b08c
   });
 };
 
 // searchbar functionality
-function searchForPokemon() {
+const searchForPokemon = () => {
   var searchBar, filter, pokeList, li, button, txtValue;
   searchBar = document.getElementById("search-bar");
   filter = searchBar.value.toUpperCase();
@@ -268,7 +315,10 @@ function searchForPokemon() {
   }
 }
 
-function typeColorCodes(pokemonType) {
+/* HELPER FUNCTIONS */
+
+// set color code classes based on pokemon type
+const typeColorCodes = (pokemonType) => {
   let colorClass = "";
 
   if (pokemonType == "normal") colorClass = "normal";
@@ -293,4 +343,67 @@ function typeColorCodes(pokemonType) {
   return colorClass;
 }
 
+<<<<<<< HEAD
 fetchPokemon();
+=======
+// set color code classes based on pokemon stat
+const statColorCodes = (pokemonStatName) => {
+  let colorClass = "";
+
+  if (pokemonStatName == "HP") colorClass = "hp"
+  else if (pokemonStatName == "ATK") colorClass = "attack"
+  else if (pokemonStatName == "DEF") colorClass = "defense"
+  else if (pokemonStatName == "SpA") colorClass = "special-attack"
+  else if (pokemonStatName == "SpD") colorClass = "special-defense"
+  else if (pokemonStatName == "SPD") colorClass = "speed"
+
+  return colorClass;
+}
+
+// expand/shrink pokemon container & sidebar
+const pokemonSidebarStyling = () => {
+  // enable sidebar upon selected pokemon
+  let sidebar = document.getElementById("sidebar-container");
+  sidebar.style.display = "block";
+  sidebar.style.width = "18%";
+  // shrink pokemon container upon selecting pokemon
+  let pokeContainer = document.getElementById("pokemon-container");
+  pokeContainer.style.width = "50%";
+}
+
+// abbreviate pokemon stat names
+const shortenPokemonStatName = (stat_name) => {
+  let statsArray = []
+
+  stat_name.forEach((s) => {
+    if (s == "hp") statsArray.push("HP")
+    else if (s == "attack") statsArray.push("ATK")
+    else if (s == "defense") statsArray.push("DEF")
+    else if (s == "special-attack") statsArray.push("SpA")
+    else if (s == "special-defense") statsArray.push("SpD")
+    else if (s == "speed") statsArray.push("SPD")
+  })
+  return statsArray
+}
+
+// run animation while pokemon are loading
+const renderLoading = () => {
+  const HTMLString = `
+        <h1>Fetching Pokèmon...</h1>
+        `;
+
+  let ol = document.getElementById("pokedex");
+  ol.innerHTML = HTMLString;
+};
+
+// keep sidebar disabled until user clicks a pokemon in the grid
+const disableSidebarOnInitialLoad = () => {
+  let sidebar = document.getElementById("sidebar-container");
+  let pokeContainer = document.getElementById("pokemon-container");
+  sidebar.style.display = "none";
+  // keep pokemon container wide until a pokemon is selected
+  pokeContainer.style.width = "70%";
+};
+
+fetchPokemon();
+>>>>>>> a50866998c360f56f6335bd62f77328de0e7b08c
