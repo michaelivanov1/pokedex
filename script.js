@@ -4,8 +4,9 @@ const fetchPokemon = async () => {
   try {
     renderLoading();
     disableSidebarOnInitialLoad();
+
     // max count: 905
-    for (let i = 1; i <= 100; i++) {
+    for (let i = 1; i <= 905; i++) {
       const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
 
       await fetch(url).then((response) => {
@@ -25,6 +26,7 @@ const fetchPokemon = async () => {
       }));
       renderPokemon(parsePokemon);
     });
+
   } catch (err) {
     console.error(`error fetching from api: ${err}`);
   }

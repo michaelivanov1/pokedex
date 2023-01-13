@@ -116,6 +116,10 @@ body {
     background-size: 10ch;
 }
 
+.card-full:hover {
+    background-color: #A2D7D5;
+}
+
 .card-li {
     width: 50%;
     margin-left: auto;
