@@ -6,12 +6,15 @@
     /* font-family: 'Modern Sans', sans-serif; */
 }
 
+html {
+    background-color: #83deff;
+}
+
 body {
     overflow-y: hidden;
 }
 
 .full-container {
-    background-color: white;
     min-height: 100vh;
     width: 100%;
 }
@@ -56,12 +59,13 @@ body {
     font-size: medium;
 }
 
-input[type="search" i] {
+input[type="search"i] {
     appearance: none;
     box-sizing: border-box;
     padding: 1px 10px;
     background-image: url('/images/pokeball.png');
 }
+
 .row {
     display: flex;
 }
@@ -72,7 +76,7 @@ input[type="search" i] {
     height: 660px;
     overflow-y: auto;
     margin-left: 14%;
-    background-color: #F6F8FC;
+    background-color: #CAE2EC;
     padding: 20px;
     overflow-x: hidden;
     height: 70vh;
@@ -101,7 +105,6 @@ input[type="search" i] {
     border-radius: 20px;
     width: 280px;
 }
-
 
 
 /* BEGINNING OF JS REFERENCED CSS */
@@ -264,6 +267,20 @@ input[type="search" i] {
 .stats-value {
     margin-top: 4px;
     font-size: 16px;
+}
+
+.pokeball-loading {
+    margin-top: 70px;
+    width: 500px;
+    height: 500px;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    /* references rotate animation from animations.css file */
+    animation-name: rotate;
+    animation-duration: 5000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
 }
 
 

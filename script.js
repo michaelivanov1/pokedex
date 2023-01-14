@@ -19,7 +19,7 @@ const fetchPokemon = async () => {
         id: "#" + data.id,
         image:
           data.sprites.versions["generation-v"]["black-white"].animated[
-            "front_default"
+          "front_default"
           ] || data.sprites["front_default"],
         type: data.types.map((type) => type.type.name),
         order: data.id,
@@ -89,15 +89,19 @@ const renderPokemon = (pokemon) => {
   // check the types and make a html string for it
   let TypeOnPoke = [];
   let currTypes;
+  // enable pokemon container scrollbar after page loading is completed
+  let pokemonContainer = document.getElementById("pokemon-container")
+  pokemonContainer.style.overflowY = "auto";
+  let rotatingPokeball = document.getElementById("pokeball-loading")
+  rotatingPokeball.style.display = "none";
+
   pokemon.map((p) => {
     if (p.type.length > 1) {
-      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])} ">${
-        p.type[0]
-      }</p><p class="card-type ${typeColorCodes(p.type[1])} ">${p.type[1]}</p>`;
+      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])} ">${p.type[0]
+        }</p><p class="card-type ${typeColorCodes(p.type[1])} ">${p.type[1]}</p>`;
     } else {
-      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])}">${
-        p.type[0]
-      }</p>`;
+      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])}">${p.type[0]
+        }</p>`;
     }
     TypeOnPoke.push(currTypes);
   });
@@ -128,7 +132,7 @@ const currentPokemonInfo = (pokemon) => {
   let abilitiesTitleString = "";
   let statsString = "";
 
-  const HTMLString = `   
+  const HTMLString = `
       <img class="selected-card-image" src="${pokemon.image}"/>
       <h3 class="selected-card-id">${pokemon.id}</h3>
       <h2 class="selected-card-title" >${pokemon.name}</h2>
@@ -161,10 +165,9 @@ const currentPokemonInfo = (pokemon) => {
       <p class="weight-title">Weight</p>
     </div>
     <div class="selected-card-height-weight-data-container">
-      <p class="height-data">${
-        pokemon.height * 10 >= 100
-          ? pokemon.height / 10 + "m"
-          : pokemon.height * 10 + "cm"
+      <p class="height-data">${pokemon.height * 10 >= 100
+        ? pokemon.height / 10 + "m"
+        : pokemon.height * 10 + "cm"
       }</p>
       <p class="weight-data">${pokemon.weight / 10 + "kg"}</p>
     </div>
@@ -175,9 +178,8 @@ const currentPokemonInfo = (pokemon) => {
     for (let i = 0; i < shortenedStats.length; i++) {
       statsString += `
         <div class="selected-card-stats-full-container">
-          <p class="stats-name ${statColorCodes(shortenedStats[i])}">${
-        shortenedStats[i]
-      }</p>
+          <p class="stats-name ${statColorCodes(shortenedStats[i])}">${shortenedStats[i]
+        }</p>
           <p class="stats-value">${pokemon.base_stat[i]}</p>
         </div>
       `;
@@ -286,10 +288,14 @@ const shortenPokemonStatName = (stat_name) => {
 
 // run animation while pokemon are loading
 const renderLoading = () => {
-  const HTMLString = `
-        <h1>Fetching Pokèmon...</h1>
-        `;
 
+  const HTMLString = `
+    <h1>Fetching Pokèmon...</h1>
+    `;
+
+  // hide scrollbar when loading
+  let pokemonContainer = document.getElementById("pokemon-container")
+  pokemonContainer.style.overflowY = "hidden";
   let ol = document.getElementById("pokedex");
   ol.innerHTML = HTMLString;
 };
