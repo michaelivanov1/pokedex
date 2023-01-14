@@ -57,13 +57,11 @@ body {
 }
 
 input[type="search" i] {
+    appearance: none;
     box-sizing: border-box;
-    border: 1px solid black;
-    padding: 2px 2px;
-    right:20px;
-    margin-right: 20px;
+    padding: 1px 10px;
+    background-image: url('/images/pokeball.png');
 }
-
 .row {
     display: flex;
 }
@@ -89,8 +87,6 @@ input[type="search" i] {
     grid-gap: 22px;
 }
 
-.pokemon-more-button{
-}
 .sidebar-container {
     margin-top: 20px;
     margin-left: 20px;
