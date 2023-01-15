@@ -19,7 +19,7 @@ const fetchPokemon = async () => {
         id: "#" + data.id,
         image:
           data.sprites.versions["generation-v"]["black-white"].animated[
-          "front_default"
+            "front_default"
           ] || data.sprites["front_default"],
         type: data.types.map((type) => type.type.name),
         order: data.id,
@@ -90,18 +90,20 @@ const renderPokemon = (pokemon) => {
   let TypeOnPoke = [];
   let currTypes;
   // enable pokemon container scrollbar after page loading is completed
-  let pokemonContainer = document.getElementById("pokemon-container")
+  let pokemonContainer = document.getElementById("pokemon-container");
   pokemonContainer.style.overflowY = "auto";
-  let rotatingPokeball = document.getElementById("pokeball-loading")
+  let rotatingPokeball = document.getElementById("pokeball-loading");
   rotatingPokeball.style.display = "none";
 
   pokemon.map((p) => {
     if (p.type.length > 1) {
-      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])} ">${p.type[0]
-        }</p><p class="card-type ${typeColorCodes(p.type[1])} ">${p.type[1]}</p>`;
+      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])} ">${
+        p.type[0]
+      }</p><p class="card-type ${typeColorCodes(p.type[1])} ">${p.type[1]}</p>`;
     } else {
-      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])}">${p.type[0]
-        }</p>`;
+      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])}">${
+        p.type[0]
+      }</p>`;
     }
     TypeOnPoke.push(currTypes);
   });
@@ -165,9 +167,10 @@ const currentPokemonInfo = (pokemon) => {
       <p class="weight-title">Weight</p>
     </div>
     <div class="selected-card-height-weight-data-container">
-      <p class="height-data">${pokemon.height * 10 >= 100
-        ? pokemon.height / 10 + "m"
-        : pokemon.height * 10 + "cm"
+      <p class="height-data">${
+        pokemon.height * 10 >= 100
+          ? pokemon.height / 10 + "m"
+          : pokemon.height * 10 + "cm"
       }</p>
       <p class="weight-data">${pokemon.weight / 10 + "kg"}</p>
     </div>
@@ -178,8 +181,9 @@ const currentPokemonInfo = (pokemon) => {
     for (let i = 0; i < shortenedStats.length; i++) {
       statsString += `
         <div class="selected-card-stats-full-container">
-          <p class="stats-name ${statColorCodes(shortenedStats[i])}">${shortenedStats[i]
-        }</p>
+          <p class="stats-name ${statColorCodes(shortenedStats[i])}">${
+        shortenedStats[i]
+      }</p>
           <p class="stats-value">${pokemon.base_stat[i]}</p>
         </div>
       `;
@@ -214,6 +218,38 @@ const searchForPokemon = () => {
       button[i].style.display = "";
     } else {
       button[i].style.display = "none";
+    }
+  }
+};
+
+const sortList = (topic) => {
+  var list, i, switching, b, shouldSwitch;
+  list = document.getElementById("pokedex");
+  switching = true;
+  /* Make a loop that will continue until
+  no switching has been done: */
+  while (switching) {
+    // Start by saying: no switching is done:
+    switching = false;
+    b = list.getElementsByTagName("li");
+    // Loop through all list items:
+    for (i = 0; i < b.length; i++) {
+      // Start by saying there should be no switching:
+      shouldSwitch = false;
+      /* Check if the next item should
+      switch place with the current item: */
+      if (b[i].innerHTML.toLowerCase() > b[i + 1].innerHTML.toLowerCase()) {
+        /* If next item is alphabetically lower than current item,
+        mark as a switch and break the loop: */
+        shouldSwitch = true;
+        break;
+      }
+    }
+    if (shouldSwitch) {
+      /* If a switch has been marked, make the switch
+      and mark the switch as done: */
+      b[i].parentNode.insertBefore(b[i + 1], b[i]);
+      switching = true;
     }
   }
 };
@@ -288,13 +324,12 @@ const shortenPokemonStatName = (stat_name) => {
 
 // run animation while pokemon are loading
 const renderLoading = () => {
-
   const HTMLString = `
     <h1>Fetching Pokémon...</h1>
     `;
 
   // hide scrollbar when loading
-  let pokemonContainer = document.getElementById("pokemon-container")
+  let pokemonContainer = document.getElementById("pokemon-container");
   pokemonContainer.style.overflowY = "hidden";
   let ol = document.getElementById("pokedex");
   ol.innerHTML = HTMLString;
