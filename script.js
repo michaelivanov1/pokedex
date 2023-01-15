@@ -290,7 +290,7 @@ const shortenPokemonStatName = (stat_name) => {
 const renderLoading = () => {
 
   const HTMLString = `
-    <h1>Fetching Pokèmon...</h1>
+    <h1>Fetching Pokémon...</h1>
     `;
 
   // hide scrollbar when loading
