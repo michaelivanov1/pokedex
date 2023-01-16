@@ -21,6 +21,8 @@ const fetchPokemon = async () => {
           data.sprites.versions["generation-v"]["black-white"].animated[
             "front_default"
           ] || data.sprites["front_default"],
+        height: data.height * 10 >= 100 ? data.height * 10 : data.height / 10,
+        weight: data.weight / 10,
         type: data.types.map((type) => type.type.name),
         order: data.id,
       }));
@@ -116,6 +118,8 @@ const renderPokemon = (pokemon) => {
                 <h3 class="card-id">${p.id}</h3>
                 <h2 class="card-title">${p.name}</h2>
                 ${TypeOnPoke[p.order - 1]}
+                <p class="Height" id=${p.height}></p>
+                <p class="Weight" id=${p.weight}></p>
             </li>
         </button>
         `
@@ -221,37 +225,12 @@ const searchForPokemon = () => {
     }
   }
 };
-
-const sortList = (topic) => {
-  var list, i, switching, b, shouldSwitch;
+// Pokemon sorting using the class name and the id as stat and number
+const sortPokemonList = (topic) => {
+  let list, b;
   list = document.getElementById("pokedex");
-  switching = true;
-  /* Make a loop that will continue until
-  no switching has been done: */
-  while (switching) {
-    // Start by saying: no switching is done:
-    switching = false;
-    b = list.getElementsByTagName("li");
-    // Loop through all list items:
-    for (i = 0; i < b.length; i++) {
-      // Start by saying there should be no switching:
-      shouldSwitch = false;
-      /* Check if the next item should
-      switch place with the current item: */
-      if (b[i].innerHTML.toLowerCase() > b[i + 1].innerHTML.toLowerCase()) {
-        /* If next item is alphabetically lower than current item,
-        mark as a switch and break the loop: */
-        shouldSwitch = true;
-        break;
-      }
-    }
-    if (shouldSwitch) {
-      /* If a switch has been marked, make the switch
-      and mark the switch as done: */
-      b[i].parentNode.insertBefore(b[i + 1], b[i]);
-      switching = true;
-    }
-  }
+  b = list.getElementsByTagName("button");
+  sortHTML(b, topic.value);
 };
 
 /* HELPER FUNCTIONS */
@@ -343,5 +322,53 @@ const disableSidebarOnInitialLoad = () => {
   // keep pokemon container wide until a pokemon is selected
   pokeContainer.style.width = "70%";
 };
+
+// sorting section-----------------------------------------------------------------
+function sortHTML(htmlCollection, attribute) {
+  var elementsArray = [].slice.call(htmlCollection);
+  elementsArray.sort(function (a, b) {
+    return (
+      a.getElementsByClassName(attribute).item(0).id -
+      b.getElementsByClassName(attribute).item(0).id
+    );
+  });
+  elementsArray.forEach(function (el) {
+    el.parentNode.appendChild(el);
+  });
+}
+
+// const quicksort = (array, left, right, topic) => {
+//   var pivot, partitionIndex;
+
+//   if (left < right) {
+//     pivot = right;
+//     partitionIndex = partition(array, pivot, left, right, topic);
+
+//     //sort left and right
+//     quicksort(array, left, partitionIndex - 1, topic);
+//     quicksort(array, partitionIndex + 1, right, topic);
+//   }
+//   return array;
+// };
+
+// const partition = (array, pivot, left, right, topic) => {
+//   var pivotValue = array[pivot].getElementsByClassName(topic).item(0).id,
+//     partitionIndex = left;
+
+//   for (var i = left; i < right; i++) {
+//     if (array[i].getElementsByClassName(topic).item(0).id < pivotValue) {
+//       swap(array, i, partitionIndex);
+//       partitionIndex++;
+//     }
+//   }
+//   swap(array, right, partitionIndex);
+//   return partitionIndex;
+// };
+
+// const swap = (array, i, j) => {
+//   var temp = array[i];
+//   array[i] = array[j];
+//   array[j] = temp;
+// };
 
 fetchPokemon();
