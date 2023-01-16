@@ -336,39 +336,4 @@ function sortHTML(htmlCollection, attribute) {
     el.parentNode.appendChild(el);
   });
 }
-
-// const quicksort = (array, left, right, topic) => {
-//   var pivot, partitionIndex;
-
-//   if (left < right) {
-//     pivot = right;
-//     partitionIndex = partition(array, pivot, left, right, topic);
-
-//     //sort left and right
-//     quicksort(array, left, partitionIndex - 1, topic);
-//     quicksort(array, partitionIndex + 1, right, topic);
-//   }
-//   return array;
-// };
-
-// const partition = (array, pivot, left, right, topic) => {
-//   var pivotValue = array[pivot].getElementsByClassName(topic).item(0).id,
-//     partitionIndex = left;
-
-//   for (var i = left; i < right; i++) {
-//     if (array[i].getElementsByClassName(topic).item(0).id < pivotValue) {
-//       swap(array, i, partitionIndex);
-//       partitionIndex++;
-//     }
-//   }
-//   swap(array, right, partitionIndex);
-//   return partitionIndex;
-// };
-
-// const swap = (array, i, j) => {
-//   var temp = array[i];
-//   array[i] = array[j];
-//   array[j] = temp;
-// };
-
 fetchPokemon();
