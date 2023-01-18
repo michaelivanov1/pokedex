@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-  <link rel="shortcut icon" href="images/pokeball-loading.png" />
+<link rel="shortcut icon" href="images/pokeball-loading.png" />
 
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,84 +14,68 @@
     <link rel="shortcut icon" href="#" />
     <link href="https://fonts.cdnfonts.com/css/modern-sans" rel="stylesheet" />
     <title>Pokédex</title>
-  </head>
+</head>
 
-  <body>
+<body>
     <div class="full-container">
-      <div class="title-container">
-        <div class="section-title">
-          <h1 class="title">Pokédex</h1>
+        <div class="title-container">
+            <div class="section-title">
+                <h1 class="title">Pokédex</h1>
+            </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="search-container">
-          <div class="section-search">
-            <input
-              type="search"
-              id="search-bar"
-              class="search-box"
-              oninput="searchForPokemon()"
-              placeholder="Search a Pokémon"
-            />
-          </div>
-        </div>
-        <button class="sort-container" value="type">Type</button>
-        <button
-          id="height-id"
-          class="sort-container"
-          value="Height"
-          onclick="sortPokemonList(this)"
-        >
-          Height
-        </button>
-        <button
-          id="weight-id"
-          class="sort-container"
-          value="Weight"
-          onclick="sortPokemonList(this)"
-        >
-          Weight
-        </button>
-      </div>
-
-      <div class="row">
-        <div class="pokemon-container" id="pokemon-container">
-          <ol id="pokedex"></ol>
-          <img
-            class="pokeball-loading"
-            id="pokeball-loading"
-            src="images/pokeball-loading.png"
-          />
+        <div class="row">
+            <div class="search-container">
+                <div class="section-search">
+                    <input type="search" id="search-bar" class="search-box" oninput="searchForPokemon()"
+                        placeholder="Search a Pokémon" />
+                </div>
+            </div>
+            <button class="sort-container" value="type">Type</button>
+            <button id="height-id" class="sort-container" value="Height" onclick="sortPokemonList(this)">
+                Height
+            </button>
+            <button id="weight-id" class="sort-container" value="Weight" onclick="sortPokemonList(this)">
+                Weight
+            </button>
         </div>
 
-        <div class="sidebar-container" id="sidebar-container">
-          <!-- <div id="pokemon-info"></div> -->
+        <div class="row">
+            <div class="pokemon-container" id="pokemon-container">
+                <ol id="pokedex"></ol>
+                <img class="pokeball-loading" id="pokeball-loading" src="images/pokeball-loading.png" />
+            </div>
+
+            <div class="sidebar-container" id="sidebar-container">
+                <!-- <div id="pokemon-info"></div> -->
+                <button>test</button>
+            </div>
+
         </div>
-      </div>
     </div>
-  </body>
-  <script src="script.js"></script>
+</body>
+<script src="script.js"></script>
+
 </html>
 
 <!-- custom scrollbar -->
 <style>
-  /* width */
-  ::-webkit-scrollbar {
-    width: 10px;
-  }
+    /* width */
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
 
-  /* track */
-  ::-webkit-scrollbar-track {
-    background: #ffde00;
-  }
+    /* track */
+    ::-webkit-scrollbar-track {
+        background: #ffde00;
+    }
 
-  /* handle */
-  ::-webkit-scrollbar-thumb {
-    background: #3b4cca;
-  }
+    /* handle */
+    ::-webkit-scrollbar-thumb {
+        background: #3b4cca;
+    }
 
-  /* handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
+    /* handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
 </style>

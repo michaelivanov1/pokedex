@@ -19,7 +19,7 @@ const fetchPokemon = async () => {
         id: "#" + data.id,
         image:
           data.sprites.versions["generation-v"]["black-white"].animated[
-            "front_default"
+          "front_default"
           ] || data.sprites["front_default"],
         height: data.height * 10 >= 100 ? data.height * 10 : data.height / 10,
         weight: data.weight / 10,
@@ -63,6 +63,16 @@ const onPokemonClick = async (e) => {
   }
 };
 
+// function to close sidebar on button click
+const onCloseSidebarClick = () => {
+  // hide sidebar
+  let sidebar = document.getElementById("sidebar-container");
+  sidebar.style.display = "none";
+  // expand pokemon container upon selecting pokemon
+  let pokeContainer = document.getElementById("pokemon-container");
+  pokeContainer.style.width = "70%";
+}
+
 // fetch pokemon descriptions
 const fetchPokemonDescription = async (id) => {
   const url = `https://pokeapi.co/api/v2/pokemon-species/${id}`;
@@ -99,13 +109,11 @@ const renderPokemon = (pokemon) => {
 
   pokemon.map((p) => {
     if (p.type.length > 1) {
-      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])} ">${
-        p.type[0]
-      }</p><p class="card-type ${typeColorCodes(p.type[1])} ">${p.type[1]}</p>`;
+      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])} ">${p.type[0]
+        }</p><p class="card-type ${typeColorCodes(p.type[1])} ">${p.type[1]}</p>`;
     } else {
-      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])}">${
-        p.type[0]
-      }</p>`;
+      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])}">${p.type[0]
+        }</p>`;
     }
     TypeOnPoke.push(currTypes);
   });
@@ -138,7 +146,14 @@ const currentPokemonInfo = (pokemon) => {
   let abilitiesTitleString = "";
   let statsString = "";
 
-  const HTMLString = `
+  let closeSidebarButton = `
+    <div class="selected-card-close-button-container">
+      <button class="selected-card-close-button" onclick="onCloseSidebarClick()">
+      </button>
+    </div>
+  `;
+
+  let HTMLString = `
       <img class="selected-card-image" src="${pokemon.image}"/>
       <h3 class="selected-card-id">${pokemon.id}</h3>
       <h2 class="selected-card-title" >${pokemon.name}</h2>
@@ -171,10 +186,9 @@ const currentPokemonInfo = (pokemon) => {
       <p class="weight-title">Weight</p>
     </div>
     <div class="selected-card-height-weight-data-container">
-      <p class="height-data">${
-        pokemon.height * 10 >= 100
-          ? pokemon.height / 10 + "m"
-          : pokemon.height * 10 + "cm"
+      <p class="height-data">${pokemon.height * 10 >= 100
+        ? pokemon.height / 10 + "m"
+        : pokemon.height * 10 + "cm"
       }</p>
       <p class="weight-data">${pokemon.weight / 10 + "kg"}</p>
     </div>
@@ -185,9 +199,8 @@ const currentPokemonInfo = (pokemon) => {
     for (let i = 0; i < shortenedStats.length; i++) {
       statsString += `
         <div class="selected-card-stats-full-container">
-          <p class="stats-name ${statColorCodes(shortenedStats[i])}">${
-        shortenedStats[i]
-      }</p>
+          <p class="stats-name ${statColorCodes(shortenedStats[i])}">${shortenedStats[i]
+        }</p>
           <p class="stats-value">${pokemon.base_stat[i]}</p>
         </div>
       `;
@@ -196,6 +209,7 @@ const currentPokemonInfo = (pokemon) => {
 
     // the final string for the whole card
     sidebar.innerHTML =
+      closeSidebarButton +
       HTMLString +
       typeString +
       descString +

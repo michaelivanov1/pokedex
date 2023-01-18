@@ -163,6 +163,19 @@ input[type="search"i] {
     border: 1px solid black;
 }
 
+.selected-card-close-button-container {
+    padding-top: 10px;
+    text-align: right;
+}
+
+.selected-card-close-button {
+    border: none;
+    background-color: #d8deb3;
+    background-image: url("images/d.png");
+    height: 30px;
+    width: 30px;
+}
+
 .selected-card-image {
     height: 240px;
     width: 240px;
