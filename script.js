@@ -63,16 +63,6 @@ const onPokemonClick = async (e) => {
   }
 };
 
-// function to close sidebar on button click
-const onCloseSidebarClick = () => {
-  // hide sidebar
-  let sidebar = document.getElementById("sidebar-container");
-  sidebar.style.display = "none";
-  // expand pokemon container upon selecting pokemon
-  let pokeContainer = document.getElementById("pokemon-container");
-  pokeContainer.style.width = "70%";
-}
-
 // fetch pokemon descriptions
 const fetchPokemonDescription = async (id) => {
   const url = `https://pokeapi.co/api/v2/pokemon-species/${id}`;
@@ -239,13 +229,7 @@ const searchForPokemon = () => {
     }
   }
 };
-// Pokemon sorting using the class name and the id as stat and number
-const sortPokemonList = (topic) => {
-  let list, b;
-  list = document.getElementById("pokedex");
-  b = list.getElementsByTagName("button");
-  sortHTML(b, topic.value);
-};
+
 
 /* HELPER FUNCTIONS */
 
@@ -337,6 +321,18 @@ const disableSidebarOnInitialLoad = () => {
   pokeContainer.style.width = "70%";
 };
 
+// function to close sidebar on button click
+const onCloseSidebarClick = () => {
+  // hide sidebar
+  let sidebar = document.getElementById("sidebar-container");
+  sidebar.style.display = "none";
+  // expand pokemon container upon selecting pokemon
+  let pokeContainer = document.getElementById("pokemon-container");
+  pokeContainer.style.width = "70%";
+}
+
+
+
 // sorting section-----------------------------------------------------------------
 function sortHTML(htmlCollection, attribute) {
   var elementsArray = [].slice.call(htmlCollection);
@@ -350,4 +346,13 @@ function sortHTML(htmlCollection, attribute) {
     el.parentNode.appendChild(el);
   });
 }
+
+// Pokemon sorting using the class name and the id as stat and number
+const sortPokemonList = (topic) => {
+  let list, b;
+  list = document.getElementById("pokedex");
+  b = list.getElementsByTagName("button");
+  sortHTML(b, topic.value);
+};
+
 fetchPokemon();

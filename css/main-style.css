@@ -7,7 +7,7 @@
 }
 
 html {
-    background-image: url("images/bg.png");
+    background-image: url("../images/background.png");
 }
 
 body {
@@ -72,7 +72,6 @@ input[type="search"i] {
 .pokemon-container {
     float: left;
     margin-top: 20px;
-    height: 680px;
     overflow-y: auto;
     margin-left: 14%;
     padding-right: 20px;
@@ -118,13 +117,13 @@ input[type="search"i] {
     border: none;
     box-shadow: 0 5px 10px black;
     border-radius: 30px;
-    background: url('/images/card-pokeball.png');
+    background: url('../images/pokeball-card.png');
     background-repeat: no-repeat;
     background-size: 10ch;
 }
 
 .card-full:hover {
-    background-color: #A2D7D5 !important;
+    background-color: #A2D7D5;
 }
 
 .card-li {
@@ -171,9 +170,13 @@ input[type="search"i] {
 .selected-card-close-button {
     border: none;
     background-color: #d8deb3;
-    background-image: url("images/d.png");
+    background-image: url("../images/sidebar-close.png");
     height: 30px;
     width: 30px;
+}
+
+.selected-card-close-button:hover {
+    background-image: url("../images/sidebar-close-onhover.png");
 }
 
 .selected-card-image {
