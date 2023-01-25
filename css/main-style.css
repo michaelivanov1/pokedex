@@ -38,7 +38,7 @@ body {
 .search-container {
     border-radius: 25px;
     margin-top: 20px;
-    width: 50%;
+    width: 25%;
     margin-left: 14%;
     padding: 14px;
     box-shadow: 0 3px 6px rgb(0 0 0 / 0.5);
@@ -49,9 +49,15 @@ body {
     margin: auto;
 }
 
+input[type="search"i] {
+    appearance: none;
+    box-sizing: border-box;
+    padding: 1px 10px;
+}
+
 #search-bar {
     height: 45px;
-    min-width: 50%;
+    min-width: 70%;
     border-radius: 25px;
     border: 2px solid black;
     background-color: #eff3d5;
@@ -59,10 +65,21 @@ body {
     font-size: medium;
 }
 
-input[type="search"i] {
-    appearance: none;
-    box-sizing: border-box;
-    padding: 1px 10px;
+.sort-container {
+    border-radius: 25px;
+    margin-top: 20px;
+    width: 20%;
+    margin-left: 1%;
+    padding: 14px;
+    box-shadow: 0 3px 6px rgb(0 0 0 / 0.5);
+}
+
+.sort-type, .sort-height, .sort-weight {
+    height: 30px;
+    min-width: 30%;
+    border-radius: 5px;
+    border: 1px solid black;
+    background-color: #eff3d5;
 }
 
 .row {

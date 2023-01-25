@@ -30,13 +30,16 @@
                         placeholder="Search a Pokémon" />
                 </div>
             </div>
-            <button class="sort-container" value="type">Type</button>
-            <button id="height-id" class="sort-container" value="Height" onclick="sortPokemonList(this)">
-                Height
-            </button>
-            <button id="weight-id" class="sort-container" value="Weight" onclick="sortPokemonList(this)">
-                Weight
-            </button>
+
+            <div class="sort-container">
+                <button value="type" class="sort-type">Type</button>
+                <button id="height-id" class="sort-height" value="Height" onclick="sortPokemonHeight(this)">
+                    Height
+                </button>
+                <button id="weight-id" class="sort-weight" value="Weight" onclick="sortPokemonWeight(this)">
+                    Weight
+                </button>
+            </div>
         </div>
 
         <div class="row">

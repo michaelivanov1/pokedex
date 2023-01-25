@@ -331,16 +331,49 @@ const onCloseSidebarClick = () => {
   pokeContainer.style.width = "70%";
 }
 
-
-
 // sorting section-----------------------------------------------------------------
-function sortHTML(htmlCollection, attribute) {
+// toggle sorting by asc/desc
+let sortOrderHeight = false;
+
+function sortPokemonHeightHTML(htmlCollection, attribute) {
+  let height = document.getElementById('height-id');
+
+  sortOrderHeight = !sortOrderHeight;
   var elementsArray = [].slice.call(htmlCollection);
   elementsArray.sort(function (a, b) {
-    return (
-      a.getElementsByClassName(attribute).item(0).id -
-      b.getElementsByClassName(attribute).item(0).id
-    );
+    if (sortOrderHeight) {
+      console.log('asc');
+      height.innerHTML = "Height ↑";
+      return a.getElementsByClassName(attribute).item(0).id - b.getElementsByClassName(attribute).item(0).id
+    } else {
+      console.log('desc');
+      height.innerHTML = "Height ↓";
+      return b.getElementsByClassName(attribute).item(0).id - a.getElementsByClassName(attribute).item(0).id
+    }
+  });
+  elementsArray.forEach(function (el) {
+    el.parentNode.appendChild(el);
+  });
+}
+
+// toggle sorting by asc/desc
+let sortOrderWeight = false;
+
+function sortPokemonWeightHTML(htmlCollection, attribute) {
+  let weight = document.getElementById('weight-id');
+
+  sortOrderWeight = !sortOrderWeight;
+  var elementsArray = [].slice.call(htmlCollection);
+  elementsArray.sort(function (a, b) {
+    if (sortOrderWeight) {
+      console.log('asc');
+      weight.innerHTML = "Weight ↑";
+      return a.getElementsByClassName(attribute).item(0).id - b.getElementsByClassName(attribute).item(0).id
+    } else {
+      console.log('desc');
+      weight.innerHTML = "Weight ↓";
+      return b.getElementsByClassName(attribute).item(0).id - a.getElementsByClassName(attribute).item(0).id
+    }
   });
   elementsArray.forEach(function (el) {
     el.parentNode.appendChild(el);
@@ -348,11 +381,18 @@ function sortHTML(htmlCollection, attribute) {
 }
 
 // Pokemon sorting using the class name and the id as stat and number
-const sortPokemonList = (topic) => {
+const sortPokemonHeight = (topic) => {
   let list, b;
   list = document.getElementById("pokedex");
   b = list.getElementsByTagName("button");
-  sortHTML(b, topic.value);
+  sortPokemonHeightHTML(b, topic.value);
+};
+
+const sortPokemonWeight = (topic) => {
+  let list, b;
+  list = document.getElementById("pokedex");
+  b = list.getElementsByTagName("button");
+  sortPokemonWeightHTML(b, topic.value);
 };
 
 fetchPokemon();
