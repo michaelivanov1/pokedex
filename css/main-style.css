@@ -74,7 +74,7 @@ input[type="search"i] {
     box-shadow: 0 3px 6px rgb(0 0 0 / 0.5);
 }
 
-.sort-type, .sort-height, .sort-weight {
+.sort-type, .sort-height, .sort-weight, .sort-order, .sort-clear {
     height: 30px;
     min-width: 30%;
     border-radius: 5px;

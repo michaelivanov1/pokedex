@@ -5,7 +5,7 @@ const fetchPokemon = async () => {
     renderLoading();
     disableSidebarOnInitialLoad();
 
-    // max count: 905
+    // max count: 905 so far...
     for (let i = 1; i <= 905; i++) {
       const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
 
@@ -19,7 +19,7 @@ const fetchPokemon = async () => {
         id: "#" + data.id,
         image:
           data.sprites.versions["generation-v"]["black-white"].animated[
-          "front_default"
+            "front_default"
           ] || data.sprites["front_default"],
         height: data.height * 10 >= 100 ? data.height * 10 : data.height / 10,
         weight: data.weight / 10,
@@ -99,11 +99,13 @@ const renderPokemon = (pokemon) => {
 
   pokemon.map((p) => {
     if (p.type.length > 1) {
-      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])} ">${p.type[0]
-        }</p><p class="card-type ${typeColorCodes(p.type[1])} ">${p.type[1]}</p>`;
+      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])} ">${
+        p.type[0]
+      }</p><p class="card-type ${typeColorCodes(p.type[1])} ">${p.type[1]}</p>`;
     } else {
-      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])}">${p.type[0]
-        }</p>`;
+      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])}">${
+        p.type[0]
+      }</p>`;
     }
     TypeOnPoke.push(currTypes);
   });
@@ -176,9 +178,10 @@ const currentPokemonInfo = (pokemon) => {
       <p class="weight-title">Weight</p>
     </div>
     <div class="selected-card-height-weight-data-container">
-      <p class="height-data">${pokemon.height * 10 >= 100
-        ? pokemon.height / 10 + "m"
-        : pokemon.height * 10 + "cm"
+      <p class="height-data">${
+        pokemon.height * 10 >= 100
+          ? pokemon.height / 10 + "m"
+          : pokemon.height * 10 + "cm"
       }</p>
       <p class="weight-data">${pokemon.weight / 10 + "kg"}</p>
     </div>
@@ -189,8 +192,9 @@ const currentPokemonInfo = (pokemon) => {
     for (let i = 0; i < shortenedStats.length; i++) {
       statsString += `
         <div class="selected-card-stats-full-container">
-          <p class="stats-name ${statColorCodes(shortenedStats[i])}">${shortenedStats[i]
-        }</p>
+          <p class="stats-name ${statColorCodes(shortenedStats[i])}">${
+        shortenedStats[i]
+      }</p>
           <p class="stats-value">${pokemon.base_stat[i]}</p>
         </div>
       `;
@@ -209,6 +213,7 @@ const currentPokemonInfo = (pokemon) => {
   });
 };
 
+// filter section --------------------
 // searchbar functionality
 const searchForPokemon = () => {
   var searchBar, filter, pokeList, li, button, txtValue;
@@ -230,6 +235,11 @@ const searchForPokemon = () => {
   }
 };
 
+const openTypesModal = () => {
+  document.getElementById("typeModal").style.display = "block";
+};
+
+const filterPokeTypes = () => {};
 
 /* HELPER FUNCTIONS */
 
@@ -329,26 +339,32 @@ const onCloseSidebarClick = () => {
   // expand pokemon container upon selecting pokemon
   let pokeContainer = document.getElementById("pokemon-container");
   pokeContainer.style.width = "70%";
-}
+};
 
 // sorting section-----------------------------------------------------------------
 // toggle sorting by asc/desc
 let sortOrderHeight = false;
 
 function sortPokemonHeightHTML(htmlCollection, attribute) {
-  let height = document.getElementById('height-id');
+  let height = document.getElementById("height-id");
 
   sortOrderHeight = !sortOrderHeight;
   var elementsArray = [].slice.call(htmlCollection);
   elementsArray.sort(function (a, b) {
     if (sortOrderHeight) {
-      console.log('asc');
+      console.log("asc");
       height.innerHTML = "Height ↑";
-      return a.getElementsByClassName(attribute).item(0).id - b.getElementsByClassName(attribute).item(0).id
+      return (
+        a.getElementsByClassName(attribute).item(0).id -
+        b.getElementsByClassName(attribute).item(0).id
+      );
     } else {
-      console.log('desc');
+      console.log("desc");
       height.innerHTML = "Height ↓";
-      return b.getElementsByClassName(attribute).item(0).id - a.getElementsByClassName(attribute).item(0).id
+      return (
+        b.getElementsByClassName(attribute).item(0).id -
+        a.getElementsByClassName(attribute).item(0).id
+      );
     }
   });
   elementsArray.forEach(function (el) {
@@ -360,20 +376,73 @@ function sortPokemonHeightHTML(htmlCollection, attribute) {
 let sortOrderWeight = false;
 
 function sortPokemonWeightHTML(htmlCollection, attribute) {
-  let weight = document.getElementById('weight-id');
+  let weight = document.getElementById("weight-id");
 
   sortOrderWeight = !sortOrderWeight;
   var elementsArray = [].slice.call(htmlCollection);
   elementsArray.sort(function (a, b) {
     if (sortOrderWeight) {
-      console.log('asc');
+      console.log("asc");
       weight.innerHTML = "Weight ↑";
-      return a.getElementsByClassName(attribute).item(0).id - b.getElementsByClassName(attribute).item(0).id
+      return (
+        a.getElementsByClassName(attribute).item(0).id -
+        b.getElementsByClassName(attribute).item(0).id
+      );
     } else {
-      console.log('desc');
+      console.log("desc");
       weight.innerHTML = "Weight ↓";
-      return b.getElementsByClassName(attribute).item(0).id - a.getElementsByClassName(attribute).item(0).id
+      return (
+        b.getElementsByClassName(attribute).item(0).id -
+        a.getElementsByClassName(attribute).item(0).id
+      );
     }
+  });
+  elementsArray.forEach(function (el) {
+    el.parentNode.appendChild(el);
+  });
+}
+
+// toggle sorting by asc/desc
+let sortOrderPokeCount = false;
+
+function sortPokemonOrderHTML(htmlCollection) {
+  let order = document.getElementById("order-id");
+
+  sortOrderPokeCount = !sortOrderPokeCount;
+  var elementsArray = [].slice.call(htmlCollection);
+  elementsArray.sort(function (a, b) {
+    if (sortOrderPokeCount) {
+      console.log("asc");
+      order.innerHTML = "Id ↑";
+      return a.id - b.id;
+    } else {
+      console.log("desc");
+      order.innerHTML = "Id ↓";
+      return b.id - a.id;
+    }
+  });
+  elementsArray.forEach(function (el) {
+    el.parentNode.appendChild(el);
+  });
+}
+
+//clear sorts back to order\\
+// only with sorts not filters yet
+function clearSortPokemonHTML(htmlCollection) {
+  let weight = document.getElementById("weight-id");
+  let height = document.getElementById("height-id");
+  let order = document.getElementById("order-id");
+
+  sortOrderWeight = false;
+  sortOrderHeight = false;
+  sortOrderPokeCount = false;
+
+  var elementsArray = [].slice.call(htmlCollection);
+  elementsArray.sort(function (a, b) {
+    weight.innerHTML = "Weight";
+    height.innerHTML = "Height";
+    order.innerHTML = "Id";
+    return a.id - b.id;
   });
   elementsArray.forEach(function (el) {
     el.parentNode.appendChild(el);
@@ -393,6 +462,20 @@ const sortPokemonWeight = (topic) => {
   list = document.getElementById("pokedex");
   b = list.getElementsByTagName("button");
   sortPokemonWeightHTML(b, topic.value);
+};
+
+const sortPokemonOrder = () => {
+  let list, b;
+  list = document.getElementById("pokedex");
+  b = list.getElementsByTagName("button");
+  sortPokemonOrderHTML(b);
+};
+
+const sortClear = () => {
+  let list, b;
+  list = document.getElementById("pokedex");
+  b = list.getElementsByTagName("button");
+  clearSortPokemonHTML(b);
 };
 
 fetchPokemon();
