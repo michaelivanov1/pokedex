@@ -18,9 +18,8 @@ const fetchPokemon = async () => {
         id: "#" + data.id,
         image:
           data.sprites.versions["generation-v"]["black-white"].animated[
-          "front_default"
-          ] ||
-          data.sprites["front_default"],
+            "front_default"
+          ] || data.sprites["front_default"],
         height: data.height * 10 >= 100 ? data.height * 10 : data.height / 10,
         weight: data.weight / 10,
         type: data.types.map((type) => type.type.name),
@@ -42,9 +41,8 @@ const fetchPokemon = async () => {
         id: "#" + data.id,
         image:
           data.sprites.versions["generation-v"]["black-white"].animated[
-          "front_default"
-          ] ||
-          data.sprites["front_default"],
+            "front_default"
+          ] || data.sprites["front_default"],
         height: data.height * 10 >= 100 ? data.height * 10 : data.height / 10,
         weight: data.weight / 10,
         type: data.types.map((type) => type.type.name),
@@ -123,11 +121,13 @@ const renderPokemon = (pokemon) => {
 
   pokemon.map((p) => {
     if (p.type.length > 1) {
-      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])} ">${p.type[0]
-        }</p><p class="card-type ${typeColorCodes(p.type[1])} ">${p.type[1]}</p>`;
+      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])} ">${
+        p.type[0]
+      }</p><p class="card-type ${typeColorCodes(p.type[1])} ">${p.type[1]}</p>`;
     } else {
-      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])}">${p.type[0]
-        }</p>`;
+      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])}">${
+        p.type[0]
+      }</p>`;
     }
     TypeOnPoke.push(currTypes);
   });
@@ -200,9 +200,10 @@ const currentPokemonInfo = (pokemon) => {
       <p class="weight-title">Weight</p>
     </div>
     <div class="selected-card-height-weight-data-container">
-      <p class="height-data">${pokemon.height * 10 >= 100
-        ? pokemon.height / 10 + "m"
-        : pokemon.height * 10 + "cm"
+      <p class="height-data">${
+        pokemon.height * 10 >= 100
+          ? pokemon.height / 10 + "m"
+          : pokemon.height * 10 + "cm"
       }</p>
       <p class="weight-data">${pokemon.weight / 10 + "kg"}</p>
     </div>
@@ -213,8 +214,9 @@ const currentPokemonInfo = (pokemon) => {
     for (let i = 0; i < shortenedStats.length; i++) {
       statsString += `
         <div class="selected-card-stats-full-container">
-          <p class="stats-name ${statColorCodes(shortenedStats[i])}">${shortenedStats[i]
-        }</p>
+          <p class="stats-name ${statColorCodes(shortenedStats[i])}">${
+        shortenedStats[i]
+      }</p>
           <p class="stats-value">${pokemon.base_stat[i]}</p>
         </div>
       `;
@@ -232,34 +234,6 @@ const currentPokemonInfo = (pokemon) => {
       statsFullString;
   });
 };
-
-// filter section --------------------
-// searchbar functionality
-const searchForPokemon = () => {
-  var searchBar, filter, pokeList, li, button, txtValue;
-  searchBar = document.getElementById("search-bar");
-  filter = searchBar.value.toUpperCase();
-  pokeList = document.getElementById("pokedex");
-  li = pokeList.getElementsByTagName("li");
-  button = pokeList.getElementsByTagName("button");
-
-  // loop through all list items and filter them out
-  for (var i = 0; i < li.length; i++) {
-    pokeName = li[i].getElementsByTagName("h2")[0];
-    txtValue = pokeName.textContent || pokeName.innerText;
-    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-      button[i].style.display = "";
-    } else {
-      button[i].style.display = "none";
-    }
-  }
-};
-
-const openTypesModal = () => {
-  document.getElementById("typeModal").style.display = "block";
-};
-
-const filterPokeTypes = () => { };
 
 /* HELPER FUNCTIONS */
 

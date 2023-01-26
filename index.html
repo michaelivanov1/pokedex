@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-<link rel="shortcut icon" href="images/pokeball-loading.png" />
+  <link rel="shortcut icon" href="images/pokeball-loading.png" />
 
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,81 +14,126 @@
     <link rel="shortcut icon" href="#" />
     <link href="https://fonts.cdnfonts.com/css/modern-sans" rel="stylesheet" />
     <title>Pokédex</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="full-container">
-        <div class="title-container">
-            <div class="section-title">
-                <h1 class="title">Pokédex</h1>
-            </div>
+      <div class="title-container">
+        <div class="section-title">
+          <h1 class="title">Pokédex</h1>
         </div>
-        <div class="row">
-            <div class="search-container">
-                <div class="section-search">
-                    <input type="search" id="search-bar" class="search-box" oninput="searchForPokemon()"
-                        placeholder="Search a Pokémon" />
-                </div>
-            </div>
-
-            <div class="sort-container">
-                <p>type: </p>
-                <button id="filterButton" class="sort-type" onclick="openTypesModal()">
-                    ↑
-                </button>
-                <p>id: </p>
-                <button id="order-id" class="sort-order" value="Order" onclick="sortPokemonOrder()">
-                    
-                </button>
-                <p>height: </p>
-                <button id="height-id" class="sort-height" value="Height" onclick="sortPokemonHeight(this)">
-                    
-                </button>
-                <p>weight: </p>
-                <button id="weight-id" class="sort-weight" value="Weight" onclick="sortPokemonWeight(this)">
-
-                </button>
-                <button id="clear-id" class="sort-clear" value="Id" onclick="sortClear()">
-                    Clear Filters
-                </button>
-            </div>
+      </div>
+      <div class="row">
+        <div class="search-container">
+          <div class="section-search">
+            <input
+              type="search"
+              id="search-bar"
+              class="search-box"
+              oninput="searchForPokemon()"
+              placeholder="Search a Pokémon"
+            />
+          </div>
         </div>
 
-        <div class="row">
-            <div class="pokemon-container" id="pokemon-container">
-                <ol id="pokedex"></ol>
-                <img class="pokeball-loading" id="pokeball-loading" src="images/pokeball-loading.png" />
-            </div>
-
-            <div class="sidebar-container" id="sidebar-container"></div>
+        <div class="sort-container">
+          <p>type:</p>
+          <div id="typeModal">
+            <form id="typeForm">
+              <select id="typeSelect">
+                <option value="">All Types</option>
+                <option value="normal">Normal</option>
+                <option value="fighting">Fighting</option>
+                <option value="flying">Flying</option>
+                <option value="poison">Poison</option>
+                <option value="ground">Ground</option>
+                <option value="rock">Rock</option>
+                <option value="bug">Bug</option>
+                <option value="ghost">Ghost</option>
+                <option value="steel">Steel</option>
+                <option value="fire">Fire</option>
+                <option value="water">Water</option>
+                <option value="grass">Grass</option>
+                <option value="electric">Electric</option>
+                <option value="psychic">Psychic</option>
+                <option value="ice">Ice</option>
+                <option value="dragon">Dragon</option>
+                <option value="dark">Dark</option>
+                <option value="fairy">Fairy</option>
+              </select>
+              <button type="button" onclick="filterPokeTypes()">Filter</button>
+            </form>
+          </div>
+          <p>id:</p>
+          <button
+            id="order-id"
+            class="sort-order"
+            value="Order"
+            onclick="sortPokemonOrder()"
+          ></button>
+          <p>height:</p>
+          <button
+            id="height-id"
+            class="sort-height"
+            value="Height"
+            onclick="sortPokemonHeight(this)"
+          ></button>
+          <p>weight:</p>
+          <button
+            id="weight-id"
+            class="sort-weight"
+            value="Weight"
+            onclick="sortPokemonWeight(this)"
+          ></button>
+          <button
+            id="clear-id"
+            class="sort-clear"
+            value="Id"
+            onclick="sortClear()"
+          >
+            Clear Filters
+          </button>
         </div>
+      </div>
+
+      <div class="row">
+        <div class="pokemon-container" id="pokemon-container">
+          <ol id="pokedex"></ol>
+          <img
+            class="pokeball-loading"
+            id="pokeball-loading"
+            src="images/pokeball-loading.png"
+          />
+        </div>
+
+        <div class="sidebar-container" id="sidebar-container"></div>
+      </div>
     </div>
-</body>
+  </body>
 
-<script src="script.js"></script>
-<script src="sorting.js"></script>
-
+  <script src="script.js"></script>
+  <script src="sorting.js"></script>
 </html>
 
 <!-- custom scrollbar -->
 <style>
-    /* width */
-    ::-webkit-scrollbar {
-        width: 10px;
-    }
+  /* width */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
 
-    /* track */
-    ::-webkit-scrollbar-track {
-        background: #f3d943;
-    }
+  /* track */
+  ::-webkit-scrollbar-track {
+    background: #f3d943;
+  }
 
-    /* handle */
-    ::-webkit-scrollbar-thumb {
-        background: #3b4cca;
-    }
+  /* handle */
+  ::-webkit-scrollbar-thumb {
+    background: #3b4cca;
+  }
 
-    /* handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
-        background: #555;
-    }
+  /* handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 </style>
