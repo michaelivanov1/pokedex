@@ -94,6 +94,11 @@ input[type="search"i] {
     background-repeat: no-repeat;
 }
 
+.updownarrow {
+    background-image: url("../images/updownarrow.png");
+    background-repeat: no-repeat;
+}
+
 .row {
     display: flex;
 }

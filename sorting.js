@@ -4,6 +4,7 @@ let sortOrderHeight = false;
 let sortOrderWeight = false;
 let sortOrderPokeCount = false;
 
+
 function sortPokemonHeightHTML(htmlCollection, attribute) {
   let height = document.getElementById("height-id");
 
@@ -60,6 +61,8 @@ function sortPokemonWeightHTML(htmlCollection, attribute) {
 
 function sortPokemonOrderHTML(htmlCollection) {
   let order = document.getElementById("order-id");
+
+  console.log('clicked id sort')
 
   sortOrderPokeCount = !sortOrderPokeCount;
   let elementsArray = [].slice.call(htmlCollection);
