@@ -1,7 +1,7 @@
 // file to sort/filter pokemon data by asc/desc, types, searchbar, etc
 
-// disable single type checkbox on startup while "All Types" is default value
-document.getElementById("single-type").disabled = true;
+// hide single type checkbox on app launch
+document.getElementById("checkbox-label").style.visibility = "hidden"
 
 const sortPokemonIdAsc = () => {
 
@@ -139,15 +139,16 @@ const searchForPokemon = () => {
   }
 };
 
-// used when type is "All Types" (default)
+// hide all types checkbox when a type other than "All Types" is selected
 const disableCheckbox = () => {
   var e = document.getElementById("typeSelect");
   var text = e.options[e.selectedIndex].text;
-  console.log(text);
   if (text === "All Types")
-    document.getElementById("single-type").disabled = true;
-  else
-    document.getElementById("single-type").disabled = false;
+    document.getElementById("checkbox-label").style.visibility = "hidden"
+  else {
+    document.getElementById("checkbox-label").style.visibility = "visible"
+    document.getElementById("checkbox-label").style.display = "block"
+  }
 }
 
 // filter pokemon single types
