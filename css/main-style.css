@@ -66,37 +66,48 @@ input[type="search"i] {
 }
 
 .sort-container {
+    text-align: center;
     display: flex;
     border-radius: 25px;
     margin-top: 20px;
-    width: 30%;
+    width: 40%;
     margin-left: 1%;
     padding: 14px;
     box-shadow: 0 3px 6px rgb(0 0 0 / 0.5);
 }
 
-.sort-type, .sort-height, .sort-weight, .sort-order, .sort-clear {
+#typeForm {
+    display: flex;
+    flex-direction: row;
+}
+
+.stats-container {
+    display: flex;
+}
+
+.sort-order-asc, .sort-height-asc, .sort-weight-asc {
+    width: 10%;
+    height: 80%;
+    padding: 20px;
+    /* background-image: url("../images/uparrow.png");
+    background-repeat: no-repeat; */
+}
+
+.sort-order-desc, .sort-height-desc, .sort-weight-desc {
+    width: 10%;
+    height: 80%;
+    padding: 20px;
+    /* background-image: url("../images/downarrow.png");
+    background-repeat: no-repeat; */
+}
+
+.sort-clear {
     height: 30px;
     min-width: 10%;
     border-radius: 5px;
     border: 1px solid black;
     background-color: #eff3d5;
     margin: 4px;
-}
-
-.uparrow {
-    background-image: url("../images/uparrow.png");
-    background-repeat: no-repeat;
-}
-
-.downarrow {
-    background-image: url("../images/downarrow.png");
-    background-repeat: no-repeat;
-}
-
-.updownarrow {
-    background-image: url("../images/updownarrow.png");
-    background-repeat: no-repeat;
 }
 
 .row {

@@ -1,81 +1,104 @@
-// file to sort/filter pokemon data
+// file to sort/filter pokemon data by asc/desc, types, searchbar, etc
 
-let sortOrderHeight = false;
-let sortOrderWeight = false;
-let sortOrderPokeCount = false;
+// disable single type checkbox on startup while "All Types" is default value
+document.getElementById("single-type").disabled = true;
 
+const sortPokemonIdAsc = () => {
 
-function sortPokemonHeightHTML(htmlCollection, attribute) {
-  let height = document.getElementById("height-id");
+  let list, htmlCOLLECTION;
+  list = document.getElementById("pokedex");
+  htmlCOLLECTION = list.getElementsByTagName("button");
 
-  sortOrderHeight = !sortOrderHeight;
-  let elementsArray = [].slice.call(htmlCollection);
+  let elementsArray = [].slice.call(htmlCOLLECTION);
   elementsArray.sort(function (a, b) {
-    if (sortOrderHeight) {
-      height.classList.add("uparrow");
-      height.classList.remove("downarrow");
-      return (
-        a.getElementsByClassName(attribute).item(0).id -
-        b.getElementsByClassName(attribute).item(0).id
-      );
-    } else {
-      height.classList.add("downarrow");
-      height.classList.remove("uparrow");
-      return (
-        b.getElementsByClassName(attribute).item(0).id -
-        a.getElementsByClassName(attribute).item(0).id
-      );
-    }
+    return a.id - b.id;
   });
   elementsArray.forEach(function (el) {
     el.parentNode.appendChild(el);
   });
 }
 
-function sortPokemonWeightHTML(htmlCollection, attribute) {
-  let weight = document.getElementById("weight-id");
+const sortPokemonIdDesc = () => {
 
-  sortOrderWeight = !sortOrderWeight;
-  let elementsArray = [].slice.call(htmlCollection);
+  let list, htmlCOLLECTION;
+  list = document.getElementById("pokedex");
+  htmlCOLLECTION = list.getElementsByTagName("button");
+
+  let elementsArray = [].slice.call(htmlCOLLECTION);
   elementsArray.sort(function (a, b) {
-    if (sortOrderWeight) {
-      weight.classList.add("uparrow");
-      weight.classList.remove("downarrow");
-      return (
-        a.getElementsByClassName(attribute).item(0).id -
-        b.getElementsByClassName(attribute).item(0).id
-      );
-    } else {
-      weight.classList.add("downarrow");
-      weight.classList.remove("uparrow");
-      return (
-        b.getElementsByClassName(attribute).item(0).id -
-        a.getElementsByClassName(attribute).item(0).id
-      );
-    }
+    return b.id - a.id;
   });
   elementsArray.forEach(function (el) {
     el.parentNode.appendChild(el);
   });
 }
 
-function sortPokemonOrderHTML(htmlCollection) {
-  let order = document.getElementById("order-id");
+const sortPokemonHeightAsc = (attribute) => {
 
-  console.log('clicked id sort')
+  let list, htmlCOLLECTION;
+  list = document.getElementById("pokedex");
+  htmlCOLLECTION = list.getElementsByTagName("button");
 
-  sortOrderPokeCount = !sortOrderPokeCount;
-  let elementsArray = [].slice.call(htmlCollection);
+  let elementsArray = [].slice.call(htmlCOLLECTION);
   elementsArray.sort(function (a, b) {
-    if (sortOrderPokeCount) {
-      order.classList.add("uparrow");
-      order.classList.remove("downarrow");
-      return a.id - b.id;
-    } else {
-      order.classList.add("downarrow");
-      order.classList.remove("uparrow");
-      return b.id - a.id;
-    }
+    return (
+      a.getElementsByClassName(attribute.value).item(0).id -
+      b.getElementsByClassName(attribute.value).item(0).id
+    );
+  });
+  elementsArray.forEach(function (el) {
+    el.parentNode.appendChild(el);
+  });
+}
+
+const sortPokemonHeightDesc = (attribute) => {
+
+  let list, htmlCOLLECTION;
+  list = document.getElementById("pokedex");
+  htmlCOLLECTION = list.getElementsByTagName("button");
+
+  let elementsArray = [].slice.call(htmlCOLLECTION);
+  elementsArray.sort(function (a, b) {
+    return (
+      b.getElementsByClassName(attribute.value).item(0).id -
+      a.getElementsByClassName(attribute.value).item(0).id
+    );
+  });
+  elementsArray.forEach(function (el) {
+    el.parentNode.appendChild(el);
+  });
+}
+
+const sortPokemonWeightAsc = (attribute) => {
+
+  let list, htmlCOLLECTION;
+  list = document.getElementById("pokedex");
+  htmlCOLLECTION = list.getElementsByTagName("button");
+
+  let elementsArray = [].slice.call(htmlCOLLECTION);
+  elementsArray.sort(function (a, b) {
+    return (
+      a.getElementsByClassName(attribute.value).item(0).id -
+      b.getElementsByClassName(attribute.value).item(0).id
+    );
+  });
+  elementsArray.forEach(function (el) {
+    el.parentNode.appendChild(el);
+  });
+}
+
+const sortPokemonWeightDesc = (attribute) => {
+
+  let list, htmlCOLLECTION;
+  list = document.getElementById("pokedex");
+  htmlCOLLECTION = list.getElementsByTagName("button");
+
+  let elementsArray = [].slice.call(htmlCOLLECTION);
+  elementsArray.sort(function (a, b) {
+    return (
+      b.getElementsByClassName(attribute.value).item(0).id -
+      a.getElementsByClassName(attribute.value).item(0).id
+    );
   });
   elementsArray.forEach(function (el) {
     el.parentNode.appendChild(el);
@@ -84,60 +107,17 @@ function sortPokemonOrderHTML(htmlCollection) {
 
 //clear sorts back to order\\
 // only with sorts not filters yet
-function clearSortPokemonHTML(htmlCollection) {
-  let weight = document.getElementById("weight-id");
-  let height = document.getElementById("height-id");
-  let order = document.getElementById("order-id");
+const clearSortPokemonHTML = () => {
+  let list, htmlCOLLECTION;
+  list = document.getElementById("pokedex");
+  htmlCOLLECTION = list.getElementsByTagName("button");
 
-  sortOrderWeight = false;
-  sortOrderHeight = false;
-  sortOrderPokeCount = false;
-
-  let elementsArray = [].slice.call(htmlCollection);
-  elementsArray.sort(function (a, b) {
-    weight.classList.remove("downarrow");
-    height.classList.remove("downarrow");
-    order.classList.remove("downarrow");
-    weight.classList.add("uparrow");
-    height.classList.add("uparrow");
-    order.classList.add("uparrow");
-    return a.id - b.id;
-  });
-  elementsArray.forEach(function (el) {
-    el.parentNode.appendChild(el);
-  });
+  let elementsArray = [].slice.call(htmlCOLLECTION);
+  elementsArray.sort(function (a, b) { return a.id - b.id; });
+  elementsArray.forEach(function (el) { el.parentNode.appendChild(el); });
 }
 
-// Pokemon sorting using the class name and the id as stat and number
-const sortPokemonHeight = (topic) => {
-  let list, b;
-  list = document.getElementById("pokedex");
-  b = list.getElementsByTagName("button");
-  sortPokemonHeightHTML(b, topic.value);
-};
 
-const sortPokemonWeight = (topic) => {
-  let list, b;
-  list = document.getElementById("pokedex");
-  b = list.getElementsByTagName("button");
-  sortPokemonWeightHTML(b, topic.value);
-};
-
-const sortPokemonOrder = () => {
-  let list, b;
-  list = document.getElementById("pokedex");
-  b = list.getElementsByTagName("button");
-  sortPokemonOrderHTML(b);
-};
-
-const sortClear = () => {
-  let list, b;
-  list = document.getElementById("pokedex");
-  b = list.getElementsByTagName("button");
-  clearSortPokemonHTML(b);
-};
-
-// filter section --------------------
 // searchbar functionality
 const searchForPokemon = () => {
   let searchBar, filter, pokeList, li, button, txtValue;
@@ -159,32 +139,76 @@ const searchForPokemon = () => {
   }
 };
 
-// type filtering ------------------------
-const filterPokeTypes = () => {
-  // the type Select
-  // get the html docs
+// used when type is "All Types" (default)
+const disableCheckbox = () => {
+  var e = document.getElementById("typeSelect");
+  var text = e.options[e.selectedIndex].text;
+  console.log(text);
+  if (text === "All Types")
+    document.getElementById("single-type").disabled = true;
+  else
+    document.getElementById("single-type").disabled = false;
+}
+
+// filter pokemon single types
+let checkboxSingleType = document.querySelector('#single-type');
+
+const filterPokeTypes = (selectedType) => {
   let pokeList, li, button;
-  let selectedType = document.getElementById("typeSelect").value;
   pokeList = document.getElementById("pokedex");
   li = pokeList.getElementsByTagName("li");
   button = pokeList.getElementsByTagName("button");
-
-  // loop all the li
+  disableCheckbox();
+  // this loop runs outside of the checkbox event listener 
+  // (user can select pokemon types without selecting single type)
   for (let i = 0; i < li.length; i++) {
-    //find out if they have two
-    let firstType = li[i].getElementsByClassName("card-type").item(0).innerHTML;
-    let secondType =
-      li[i].getElementsByClassName("card-type").length === 2
-        ? li[i].getElementsByClassName("card-type").item(1).innerHTML
-        : "";
 
-    //check the types if they match
+    // determine pokemon type count
+    let firstType = li[i].getElementsByClassName("card-type").item(0).innerHTML;
+    let secondType = li[i].getElementsByClassName("card-type").length === 2
+      ? li[i].getElementsByClassName("card-type").item(1).innerHTML
+      : "";
+
+    // match types with selected type & display list items accordingly 
     if (selectedType === "") {
       button[i].style.display = "";
-    } else if (firstType === selectedType || secondType === selectedType) {
+    }
+    else if (firstType === selectedType && secondType === "" && checkboxSingleType.checked) {
       button[i].style.display = "";
-    } else {
+    }
+    else if ((firstType === selectedType || secondType === selectedType) && !checkboxSingleType.checked) {
+      button[i].style.display = "";
+    }
+    else {
       button[i].style.display = "none";
     }
   }
+
+  // this loop is for updating the pokemon list items if the user selects/deselects the single type checkbox
+  checkboxSingleType.addEventListener('change', (event) => {
+    if (event.currentTarget.checked || !event.currentTarget.checked) {
+      // loop all the li
+      for (let i = 0; i < li.length; i++) {
+        // determine pokemon type count
+        let firstType = li[i].getElementsByClassName("card-type").item(0).innerHTML;
+        let secondType = li[i].getElementsByClassName("card-type").length === 2
+          ? li[i].getElementsByClassName("card-type").item(1).innerHTML
+          : "";
+
+        // match types with selected type & display list items accordingly 
+        if (selectedType === "") {
+          button[i].style.display = "";
+        }
+        else if (firstType === selectedType && secondType === "" && checkboxSingleType.checked) {
+          button[i].style.display = "";
+        }
+        else if ((firstType === selectedType || secondType === selectedType) && !checkboxSingleType.checked) {
+          button[i].style.display = "";
+        }
+        else {
+          button[i].style.display = "none";
+        }
+      }
+    }
+  })
 };
