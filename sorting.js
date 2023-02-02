@@ -3,7 +3,22 @@
 // hide single type checkbox on app launch
 document.getElementById("checkbox-label").style.visibility = "hidden"
 
+let buttonAscId = document.getElementById("sort-order-asc")
+buttonAscId.style.backgroundColor = "#f3d943";
+let buttonAscHeight = document.getElementById("sort-height-asc")
+buttonAscHeight.style.backgroundColor = "#f3d943";
+let buttonAscWeight = document.getElementById("sort-weight-asc")
+buttonAscWeight.style.backgroundColor = "#f3d943";
+
+
 const sortPokemonIdAsc = () => {
+
+  let buttonAsc = document.getElementById("sort-order-asc")
+  buttonAsc.style.backgroundColor = "#f3d943";
+  buttonAsc.style.cursor = "auto";
+  let buttonDesc = document.getElementById("sort-order-desc")
+  buttonDesc.style.backgroundColor = "white";
+  buttonDesc.style.cursor = "pointer";
 
   let list, htmlCOLLECTION;
   list = document.getElementById("pokedex");
@@ -20,6 +35,13 @@ const sortPokemonIdAsc = () => {
 
 const sortPokemonIdDesc = () => {
 
+  let buttonAsc = document.getElementById("sort-order-asc")
+  buttonAsc.style.backgroundColor = "white";
+  buttonAsc.style.cursor = "pointer";
+  let buttonDesc = document.getElementById("sort-order-desc")
+  buttonDesc.style.backgroundColor = "#f3d943";
+  buttonDesc.style.cursor = "auto";
+
   let list, htmlCOLLECTION;
   list = document.getElementById("pokedex");
   htmlCOLLECTION = list.getElementsByTagName("button");
@@ -34,6 +56,13 @@ const sortPokemonIdDesc = () => {
 }
 
 const sortPokemonHeightAsc = (attribute) => {
+
+  let buttonAsc = document.getElementById("sort-height-asc")
+  buttonAsc.style.backgroundColor = "#f3d943";
+  buttonAsc.style.cursor = "auto";
+  let buttonDesc = document.getElementById("sort-height-desc")
+  buttonDesc.style.backgroundColor = "white";
+  buttonDesc.style.cursor = "pointer";
 
   let list, htmlCOLLECTION;
   list = document.getElementById("pokedex");
@@ -53,6 +82,13 @@ const sortPokemonHeightAsc = (attribute) => {
 
 const sortPokemonHeightDesc = (attribute) => {
 
+  let buttonAsc = document.getElementById("sort-height-asc")
+  buttonAsc.style.backgroundColor = "white";
+  buttonAsc.style.cursor = "pointer";
+  let buttonDesc = document.getElementById("sort-height-desc")
+  buttonDesc.style.backgroundColor = "#f3d943";
+  buttonDesc.style.cursor = "auto";
+
   let list, htmlCOLLECTION;
   list = document.getElementById("pokedex");
   htmlCOLLECTION = list.getElementsByTagName("button");
@@ -71,6 +107,13 @@ const sortPokemonHeightDesc = (attribute) => {
 
 const sortPokemonWeightAsc = (attribute) => {
 
+  let buttonAsc = document.getElementById("sort-weight-asc")
+  buttonAsc.style.backgroundColor = "#f3d943";
+  buttonAsc.style.cursor = "auto";
+  let buttonDesc = document.getElementById("sort-weight-desc")
+  buttonDesc.style.backgroundColor = "white";
+  buttonDesc.style.cursor = "pointer";
+
   let list, htmlCOLLECTION;
   list = document.getElementById("pokedex");
   htmlCOLLECTION = list.getElementsByTagName("button");
@@ -88,6 +131,13 @@ const sortPokemonWeightAsc = (attribute) => {
 }
 
 const sortPokemonWeightDesc = (attribute) => {
+
+  let buttonAsc = document.getElementById("sort-weight-asc")
+  buttonAsc.style.backgroundColor = "white";
+  buttonAsc.style.cursor = "pointer";
+  let buttonDesc = document.getElementById("sort-weight-desc")
+  buttonDesc.style.backgroundColor = "#f3d943";
+  buttonDesc.style.cursor = "auto";
 
   let list, htmlCOLLECTION;
   list = document.getElementById("pokedex");
@@ -108,6 +158,8 @@ const sortPokemonWeightDesc = (attribute) => {
 //clear sorts back to order\\
 // only with sorts not filters yet
 const clearSortPokemonHTML = () => {
+  // clear colors 
+  clearSortColorValues();
   let list, htmlCOLLECTION;
   list = document.getElementById("pokedex");
   htmlCOLLECTION = list.getElementsByTagName("button");
@@ -213,3 +265,27 @@ const filterPokeTypes = (selectedType) => {
     }
   })
 };
+
+const clearSortColorValues = () => {
+  let buttonAscId = document.getElementById("sort-order-asc")
+  buttonAscId.style.backgroundColor = "#f3d943";
+  let buttonDescId = document.getElementById("sort-order-desc")
+  buttonDescId.style.backgroundColor = "white";
+  let buttonAscHeight = document.getElementById("sort-height-asc")
+  buttonAscHeight.style.backgroundColor = "#f3d943";
+  let buttonDescHeight = document.getElementById("sort-height-desc")
+  buttonDescHeight.style.backgroundColor = "white";
+  let buttonAscWeight = document.getElementById("sort-weight-asc")
+  buttonAscWeight.style.backgroundColor = "#f3d943";
+  let buttonDescWeight = document.getElementById("sort-weight-desc")
+  buttonDescWeight.style.backgroundColor = "white";
+  buttonDescId.style.cursor = "pointer";
+  buttonDescHeight.style.cursor = "pointer";
+  buttonDescWeight.style.cursor = "pointer";
+  buttonAscId.style.cursor = "auto";
+  buttonAscHeight.style.cursor = "auto";
+  buttonAscWeight.style.cursor = "auto";
+}
+
+// start app with selected asc buttons
+clearSortColorValues();
