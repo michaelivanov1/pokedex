@@ -32,21 +32,16 @@ body {
 .section-title {
     padding: 14px;
     border-radius: 25px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .search-container {
     border-radius: 25px;
     margin-top: 20px;
-    width: 28%;
+    width: 29%;
     margin-left: 14%;
     padding: 14px;
     box-shadow: 0 3px 6px rgb(0 0 0 / 0.5);
-}
-
-.section-search {
-    border-radius: 25px;
-    margin: auto;
 }
 
 input[type="search"i] {
@@ -56,7 +51,7 @@ input[type="search"i] {
 }
 
 #search-bar {
-    margin-top: 3%;
+    margin-top: 1%;
     height: 45px;
     min-width: 70%;
     border-radius: 25px;
@@ -73,7 +68,7 @@ input[type="search"i] {
     margin-top: 20px;
     width: 40%;
     margin-left: 1%;
-    padding: 14px;
+    padding: 5px;
     box-shadow: 0 3px 6px rgb(0 0 0 / 0.5);
 }
 
@@ -145,7 +140,7 @@ input[type="search"i] {
     margin-left: 14%;
     padding-right: 20px;
     overflow-x: hidden;
-    height: 72vh;
+    height: 70vh;
     padding: 20px;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
@@ -166,7 +161,7 @@ input[type="search"i] {
     margin-left: 20px;
     float: right;
     width: 360px;
-    height: 72vh;
+    height: 70vh;
     padding: 0px 10px 40px 10px;
     text-align: center;
     border: none;
@@ -252,7 +247,6 @@ input[type="search"i] {
 .selected-card-image {
     height: 240px;
     width: 240px;
-    padding-top: 10px;
 }
 
 .selected-card-id {
@@ -304,8 +298,8 @@ input[type="search"i] {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    margin-top: 6px;
     font-size: 14px;
+    margin-top: 2px;
     text-transform: uppercase;
 }
 
@@ -324,7 +318,7 @@ input[type="search"i] {
 }
 
 .selected-card-stat-title {
-    margin-top: 18px;
+    margin-top: 10px;
     font-size: 18px;
 }
 
