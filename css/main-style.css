@@ -38,7 +38,7 @@ body {
 .search-container {
     border-radius: 25px;
     margin-top: 20px;
-    width: 25%;
+    width: 28%;
     margin-left: 14%;
     padding: 14px;
     box-shadow: 0 3px 6px rgb(0 0 0 / 0.5);
@@ -56,6 +56,7 @@ input[type="search"i] {
 }
 
 #search-bar {
+    margin-top: 3%;
     height: 45px;
     min-width: 70%;
     border-radius: 25px;
@@ -85,20 +86,38 @@ input[type="search"i] {
     display: flex;
 }
 
+.sort-id-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.sort-height-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.sort-weight-container {
+    display: flex;
+    flex-direction: column;
+}
+
 .sort-order-asc, .sort-height-asc, .sort-weight-asc {
     width: 10%;
-    height: 80%;
-    padding: 20px;
-    /* background-image: url("../images/uparrow.png");
-    background-repeat: no-repeat; */
+    height: 10%;
+    padding: 16px;
+    background-image: url("../images/uparrow.png");
+    background-repeat: no-repeat;
+    border: 1px solid black;
 }
 
 .sort-order-desc, .sort-height-desc, .sort-weight-desc {
+    margin-top: 6px;
     width: 10%;
-    height: 80%;
-    padding: 20px;
-    /* background-image: url("../images/downarrow.png");
-    background-repeat: no-repeat; */
+    height: 10%;
+    padding: 16px;
+    background-image: url("../images/downarrow.png");
+    background-repeat: no-repeat;
+    border: 1px solid black;
 }
 
 .sort-clear {
@@ -108,6 +127,11 @@ input[type="search"i] {
     border: 1px solid black;
     background-color: #eff3d5;
     margin: 4px;
+}
+
+.sort-clear:hover {
+    background-color: #f3d943;
+    cursor: pointer;
 }
 
 .row {
@@ -222,6 +246,7 @@ input[type="search"i] {
 
 .selected-card-close-button:hover {
     background-image: url("../images/sidebar-close-onhover.png");
+    cursor: pointer;
 }
 
 .selected-card-image {

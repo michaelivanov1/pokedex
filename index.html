@@ -33,8 +33,8 @@
 
             <div class="sort-container">
                 <div>
-                    <form id="typeForm">
-                        type:
+                    <form id="typeForm" style="margin-top: 12%; margin-left: 30px">
+                        Type:
                         <select id="typeSelect" style="margin-left: 5px" onchange="filterPokeTypes(this.value)">
                             <option value="">All Types</option>
                             <option value="normal">Normal</option>
@@ -58,22 +58,35 @@
                         </select>
                     </form>
 
-                    <label id="checkbox-label">
-                        <input type="checkbox" id="single-type" name="single-type" style="margin-right: 5px">single
-                        type
+                    <label id="checkbox-label" style="margin-top: 5px; margin-right: 40px; margin-left: 30px">
+                        <input type="checkbox" id="single-type" name="single-type" style="margin-right: 5px">Single
+                        type?
                     </label>
                 </div>
                 <div class="stats-container">
-                    <p>id:</p>
-                    <button class="sort-order-asc" value="Order" onclick="sortPokemonIdAsc()">asc</button>
-                    <button class="sort-order-desc" value="Order" onclick="sortPokemonIdDesc()">desc</button>
-                    <p>height:</p>
-                    <button class="sort-height-asc" value="Height" onclick="sortPokemonHeightAsc(this)">asc</button>
-                    <button class="sort-height-desc" value="Height" onclick="sortPokemonHeightDesc(this)">desc</button>
-                    <p>weight:</p>
-                    <button class="sort-weight-asc" value="Weight" onclick="sortPokemonWeightAsc(this)">asc</button>
-                    <button class="sort-weight-desc" value="Weight" onclick="sortPokemonWeightDesc(this)">desc</button>
-                    <button class="sort-clear" value="Id" onclick="clearSortPokemonHTML()">
+                    <p style="margin-right: 10px; margin-left: 10px; margin-top: 5%">Id:</p>
+                    <div class="sort-id-container">
+                        <button class="sort-order-asc" id="sort-order-asc" value="Order"
+                            onclick="sortPokemonIdAsc()"></button>
+                        <button class="sort-order-desc" id="sort-order-desc" value="Order"
+                            onclick="sortPokemonIdDesc()"></button>
+                    </div>
+                    <p style="margin-right: 10px; margin-left: 10px; margin-top: 5%">Height:</p>
+                    <div class="sort-height-container">
+                        <button class="sort-height-asc" id="sort-height-asc" value="Height"
+                            onclick="sortPokemonHeightAsc(this)"></button>
+                        <button class="sort-height-desc" id="sort-height-desc" value="Height"
+                            onclick="sortPokemonHeightDesc(this)"></button>
+                    </div>
+                    <p style="margin-right: 10px; margin-left: 10px; margin-top: 5%">Weight:</p>
+                    <div class="sort-weight-container">
+                        <button class="sort-weight-asc" id="sort-weight-asc" value="Weight"
+                            onclick="sortPokemonWeightAsc(this)"></button>
+                        <button class="sort-weight-desc" id="sort-weight-desc" value="Weight"
+                            onclick="sortPokemonWeightDesc(this)"></button>
+                    </div>
+                    <button style="margin-left: 30px; margin-top: 5%" class="sort-clear" value="Id"
+                        onclick="clearSortPokemonHTML()">
                         Clear Filters
                     </button>
                 </div>
