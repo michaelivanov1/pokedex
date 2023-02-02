@@ -38,31 +38,38 @@ const fetchPokemon = async () => {
 
 // fired upon clicking a card
 const onPokemonClick = async (e) => {
-  let currJson;
-  try {
-    const url = `https://pokeapi.co/api/v2/pokemon/${e.id}`;
-    await fetch(url).then((response) => {
-      currJson = response.json();
-    });
-    Promise.resolve(currJson).then((data) => {
-      const currPokemon = {
-        name: data.name,
-        id: "#" + data.id,
-        image:
-          data.sprites.other["dream_world"]["front_default"] ||
-          data.sprites["front_default"],
-        type: data.types.map((type) => type.type.name),
-        order: data.order,
-        abilities: data.abilities.map((ability) => ability.ability.name),
-        height: data.height,
-        weight: data.weight,
-        base_stat: data.stats.map((stat) => stat.base_stat),
-        stat_name: data.stats.map((stat) => stat.stat.name),
-      };
-      currentPokemonInfo(currPokemon);
-    });
-  } catch (err) {
-    console.error(`error fetching from api: ${err}`);
+
+
+  if (window.innerWidth >= 1060) {
+    console.log('>= 1060')
+    let currJson;
+    try {
+      const url = `https://pokeapi.co/api/v2/pokemon/${e.id}`;
+      await fetch(url).then((response) => {
+        currJson = response.json();
+      });
+      Promise.resolve(currJson).then((data) => {
+        const currPokemon = {
+          name: data.name,
+          id: "#" + data.id,
+          image:
+            data.sprites.other["dream_world"]["front_default"] ||
+            data.sprites["front_default"],
+          type: data.types.map((type) => type.type.name),
+          order: data.order,
+          abilities: data.abilities.map((ability) => ability.ability.name),
+          height: data.height,
+          weight: data.weight,
+          base_stat: data.stats.map((stat) => stat.base_stat),
+          stat_name: data.stats.map((stat) => stat.stat.name),
+        };
+        currentPokemonInfo(currPokemon);
+      });
+    } catch (err) {
+      console.error(`error fetching from api: ${err}`);
+    }
+  } else {
+    console.log('< 1060')
   }
 };
 
@@ -302,7 +309,7 @@ const disableSidebarOnInitialLoad = () => {
   pokeContainer.style.width = "70%";
 };
 
-// function to close sidebar on button click
+// close sidebar on button click
 const onCloseSidebarClick = () => {
   // hide sidebar
   let sidebar = document.getElementById("sidebar-container");
@@ -311,5 +318,14 @@ const onCloseSidebarClick = () => {
   let pokeContainer = document.getElementById("pokemon-container");
   pokeContainer.style.width = "70%";
 };
+
+// close sidebar if screen goes less than 1060px 
+const mediaQuery = window.matchMedia('(max-width: 1060px)');
+mediaQuery.addEventListener('change', function (e) {
+  // let card = document.getElementById("card-full");
+  // card.style.display = "none";
+
+  onCloseSidebarClick();
+});
 
 fetchPokemon();

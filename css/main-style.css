@@ -35,7 +35,7 @@ body {
     margin-bottom: 10px;
 }
 
-.main-page-ui-container{
+.main-page-ui-container {
     display: flex;
 }
 
@@ -77,17 +77,19 @@ input[type="search"i] {
 }
 
 #typeForm {
+    margin-left: 30px;
     display: flex;
     flex-direction: row;
 }
 
 .stats-container {
     display: flex;
+    flex-direction: row;
 }
 
-.sort-label {
-    margin-right: 10px; 
-    margin-left: 10px; 
+.sort-label-id, .sort-label-height, .sort-label-weight {
+    margin-right: 10px;
+    margin-left: 10px;
     margin-top: 5%;
 }
 
@@ -126,7 +128,7 @@ input[type="search"i] {
 }
 
 .sort-clear {
-    height: 30px;
+    height: 40px;
     min-width: 10%;
     border-radius: 5px;
     border: 1px solid black;
@@ -137,6 +139,10 @@ input[type="search"i] {
 .sort-clear:hover {
     background-color: #f3d943;
     cursor: pointer;
+}
+
+.row {
+    display: flex;
 }
 
 .pokemon-container {
@@ -371,10 +377,6 @@ input[type="search"i] {
     animation-timing-function: linear;
 }
 
-.disable-on-mobile{
-    margin-top: 5%;
-}
-
 @media only screen and (min-width: 741px) and (max-width: 1600px) {
     #pokedex {
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -382,70 +384,179 @@ input[type="search"i] {
     }
 
     .title-container {
-        width: 68%;
+        width: 70%;
+        margin-left: 14%;
     }
 
     .sidebar-container {
         width: 200px;
         margin-right: 10px;
     }
-    
+
+    .selected-card-image {
+        height: 200px;
+        width: 200px;
+    }
+
+    #typeForm, #typeSelect, #checkbox-label {
+        margin-left: 10px;
+        font-size: 9px;
+    }
+
+    .sort-label-id, .sort-label-height, .sort-label-weight {
+        font-size: 10px;
+        margin: 30px 10px 0px 10px;
+    }
+
+    .sort-id-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sort-height-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sort-weight-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sort-order-asc, .sort-height-asc, .sort-weight-asc {
+        margin-top: 10px;
+        padding: 10px;
+        background-image: url("../images/uparrow.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        border: 1px solid black;
+    }
+
+    .sort-order-desc, .sort-height-desc, .sort-weight-desc {
+        padding: 10px;
+        background-image: url("../images/downarrow.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        border: 1px solid black;
+    }
+
+    .sort-clear {
+        padding: 0;
+        font-size: 10px;
+        height: 30px;
+        border-radius: 5px;
+        border: 1px solid black;
+        background-color: #eff3d5;
+    }
+
+    .sort-clear:hover {
+        background-color: #f3d943;
+        cursor: pointer;
+    }
 }
 
+/* change sidebar data sizes & replace main background */
+@media only screen and (max-width: 1300px) {
+    .selected-card-image {
+        height: 180px;
+        width: 180px;
+    }
+
+    .selected-card-description {
+        font-size: 10px;
+    }
+
+    html {
+        background-image: url("../images/background-smallscreen.png");
+    }
+}
+
+/* start removing sort container contents */
+@media only screen and (min-width: 740px) and (max-width: 1000px) {
+    .sort-weight-asc, .sort-weight-desc, .sort-label-weight, .sort-height-asc, .sort-height-desc, .sort-label-height, .sort-clear {
+        display: none;
+    }
+
+    .sort-id-container {
+        flex-direction: row;
+    }
+
+    .sort-order-asc, .sort-order-desc {
+        margin-top: 20px;
+        margin-left: 5px;
+        padding: 12px;
+    }
+
+    .sort-label-id {
+        font-size: large;
+        margin-top: 20px;
+        margin-left: 40px;
+    }
+
+    #typeForm {
+        margin-left: 30px;
+        padding-top: 3px;
+        font-size: large;
+    }
+}
+
+/* searchbar responsiveness */
+@media only screen and (min-width: 741px) and (max-width: 960px) {
+    #search-bar {
+        width: 100%;
+    }
+}
+
+/* anything smaller than 740px */
 @media only screen and (max-width: 740px) {
     .selected-card-full {
         display: none;
     }
 
-    .disable-on-mobile{
+    .disable-on-mobile {
         display: none;
     }
 
     .pokemon-container {
-        width: 80%;
-        margin-left: auto;
-        margin-right: auto;
+        margin-left: 8%;
+        width: 20%;
     }
 
-    .main-page-ui-container{
+    .main-page-ui-container {
         display: block;
     }
 
     .sort-container {
-        width: 80%;
-        margin-left: auto;
-        margin-right: auto;
+        width: 75%;
+        margin-left: 8%;
+        display: none;
     }
 
     .sort-height-container {
         display: none;
     }
-    
+
     .sort-weight-container {
         display: none;
     }
 
     .search-container {
-        width: 80%;
-        margin-left: auto;
-        margin-right: auto;
+        width: 76%;
+        margin-left: 8%;
+        padding-left: 0;
+        padding-right: 0;
     }
 
     .title-container {
-        width: 84%;
-        margin-left: auto;
-        margin-right: auto;
+        margin-top: 20px;
+        padding: 0;
+        width: 76%;
+        margin-left: 8%;
         padding: 0;
     }
 
     #search-bar {
         width: 90%;
-    }
-}
-
-@media only screen and (max-width: 739px) {
-    .pokemon-container {
-        margin-left: 8%;
-        width: 20%;
+        margin-left: 5%;
     }
 }
