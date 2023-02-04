@@ -520,6 +520,8 @@ input[type="search"i] {
     .pokemon-container {
         margin-left: 8%;
         width: 20%;
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
     }
 
     .main-page-ui-container {
@@ -559,4 +561,22 @@ input[type="search"i] {
         width: 90%;
         margin-left: 5%;
     }
+}
+
+/* anything smaller than 550px */
+@media only screen and (max-width: 550px) {
+    .search-container {
+        width: 78%;
+        margin-left: 38px;
+    }
+
+    .title-container {
+        width: 78%;
+        margin-left: 38px;
+    }
+
+    .row {
+        margin-left: 10px;
+    }
+
 }
