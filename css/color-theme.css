@@ -6,21 +6,10 @@
     background-color: #61aad4;
 }
 
-#pokedex {
-    /* background-image: url("images/t.png");
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-position: 47.5%, 50%; */
-}
-
 .card-full {
     background-color: #f3d943;
 }
 
 .sidebar-container {
-    background-color: #d8deb3;
-}
-
-.modal-content {
     background-color: #d8deb3;
 }

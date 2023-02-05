@@ -1,0 +1,44 @@
+.pokemon-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #d8deb3;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    border-radius: 20px;
+}
+
+.modal-content .selected-card-image {
+    margin-right: 30px;
+    margin-bottom: 4px;
+    float: left;
+}
+
+.modal-content .stats-value {
+    margin-top: 0;
+}
+
+.modal-content .selected-card-stat-title {
+    text-align: left;
+}
+
+.modal-content .selected-card-description {
+    font-size: 16px;
+    padding: 0;
+}
+
+.modal-content .height-data, .modal-content .weight-data {
+    text-align: center;
+}

@@ -377,35 +377,29 @@ input[type="search"i] {
     animation-timing-function: linear;
 }
 
-/*modal work here*/
-.pokemon-modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-  }
-  
-  /* Modal Content */
-  .modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
-    border-radius: 20px;
-  }
-  
+@media only screen and (min-width: 1600px) and (max-width: 1800px) {
+    .pokemon-container {
+        height: 66vh;
+    }
+
+    .selected-card-image {
+        width: 150px;
+        height: 150px;
+    }
+
+    .sidebar-container {
+        height: 66vh;
+    }
+}
 
 @media only screen and (min-width: 741px) and (max-width: 1600px) {
     #pokedex {
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         grid-gap: 30px;
+    }
+
+    .pokemon-container {
+        height: 68vh;
     }
 
     .title-container {
@@ -416,6 +410,7 @@ input[type="search"i] {
     .sidebar-container {
         width: 200px;
         margin-right: 10px;
+        height: 68vh;
     }
 
     .selected-card-image {
@@ -481,7 +476,7 @@ input[type="search"i] {
 }
 
 /* change sidebar data sizes & replace main background */
-@media only screen and (max-width: 1300px) {
+@media only screen and (max-width: 1410px) {
     .selected-card-image {
         height: 180px;
         width: 180px;
