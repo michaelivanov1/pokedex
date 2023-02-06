@@ -6,7 +6,7 @@ const fetchPokemon = async () => {
     disableSidebarOnInitialLoad();
     let i = 0;
     // max count: 905 so far...
-    for (i = 1; i <= 905; i++) {
+    for (i = 1; i <= 100; i++) {
       const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
 
       await fetch(url).then((response) => {
@@ -21,7 +21,7 @@ const fetchPokemon = async () => {
             image:
               // data.sprites.versions["generation-v"]["black-white"].animated[
               //   "front_default"
-              // ] || 
+              // ] ||
               data.sprites["front_default"],
             height:
               data.height * 10 >= 100 ? data.height * 10 : data.height / 10,
@@ -104,11 +104,13 @@ const renderPokemon = (pokemon) => {
 
   pokemon.map((p) => {
     if (p.type.length > 1) {
-      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])} ">${p.type[0]
-        }</p><p class="card-type ${typeColorCodes(p.type[1])} ">${p.type[1]}</p>`;
+      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])} ">${
+        p.type[0]
+      }</p><p class="card-type ${typeColorCodes(p.type[1])} ">${p.type[1]}</p>`;
     } else {
-      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])}">${p.type[0]
-        }</p>`;
+      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])}">${
+        p.type[0]
+      }</p>`;
     }
     TypeOnPoke.push(currTypes);
   });
@@ -190,9 +192,10 @@ const currentPokemonInfo = (pokemon) => {
       <p class="weight-title">Weight</p>
     </div>
     <div class="selected-card-height-weight-data-container">
-      <p class="height-data">${pokemon.height * 10 >= 100
-        ? pokemon.height / 10 + "m"
-        : pokemon.height * 10 + "cm"
+      <p class="height-data">${
+        pokemon.height * 10 >= 100
+          ? pokemon.height / 10 + "m"
+          : pokemon.height * 10 + "cm"
       }</p>
       <p class="weight-data">${pokemon.weight / 10 + "kg"}</p>
     </div>
@@ -203,8 +206,9 @@ const currentPokemonInfo = (pokemon) => {
     for (let i = 0; i < shortenedStats.length; i++) {
       statsString += `
         <div class="selected-card-stats-full-container">
-          <p class="stats-name ${statColorCodes(shortenedStats[i])}">${shortenedStats[i]
-        }</p>
+          <p class="stats-name ${statColorCodes(shortenedStats[i])}">${
+        shortenedStats[i]
+      }</p>
           <p class="stats-value">${pokemon.base_stat[i]}</p>
         </div>
       `;

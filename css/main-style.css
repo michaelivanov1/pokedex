@@ -108,7 +108,7 @@ input[type="search"i] {
     flex-direction: column;
 }
 
-.sort-order-asc, .sort-height-asc, .sort-weight-asc {
+.sort-id-asc, .sort-height-asc, .sort-weight-asc {
     width: 10%;
     height: 10%;
     padding: 16px;
@@ -117,7 +117,7 @@ input[type="search"i] {
     border: 1px solid black;
 }
 
-.sort-order-desc, .sort-height-desc, .sort-weight-desc {
+.sort-id-desc, .sort-height-desc, .sort-weight-desc {
     margin-top: 6px;
     width: 10%;
     height: 10%;
@@ -127,7 +127,7 @@ input[type="search"i] {
     border: 1px solid black;
 }
 
-.sort-clear {
+.sort-clear-default {
     height: 40px;
     min-width: 10%;
     border-radius: 5px;
@@ -136,7 +136,7 @@ input[type="search"i] {
     margin: 4px;
 }
 
-.sort-clear:hover {
+.sort-clear-default:hover {
     background-color: #f3d943;
     cursor: pointer;
 }
@@ -443,7 +443,7 @@ input[type="search"i] {
         flex-direction: column;
     }
 
-    .sort-order-asc, .sort-height-asc, .sort-weight-asc {
+    .sort-id-asc, .sort-height-asc, .sort-weight-asc {
         margin-top: 10px;
         padding: 10px;
         background-image: url("../images/uparrow.png");
@@ -452,7 +452,7 @@ input[type="search"i] {
         border: 1px solid black;
     }
 
-    .sort-order-desc, .sort-height-desc, .sort-weight-desc {
+    .sort-id-desc, .sort-height-desc, .sort-weight-desc {
         padding: 10px;
         background-image: url("../images/downarrow.png");
         background-repeat: no-repeat;
@@ -460,7 +460,7 @@ input[type="search"i] {
         border: 1px solid black;
     }
 
-    .sort-clear {
+    .sort-clear-default {
         padding: 0;
         font-size: 10px;
         height: 30px;
@@ -469,7 +469,7 @@ input[type="search"i] {
         background-color: #eff3d5;
     }
 
-    .sort-clear:hover {
+    .sort-clear-default:hover {
         background-color: #f3d943;
         cursor: pointer;
     }
@@ -493,7 +493,7 @@ input[type="search"i] {
 
 /* start removing sort container contents */
 @media only screen and (min-width: 740px) and (max-width: 1000px) {
-    .sort-weight-asc, .sort-weight-desc, .sort-label-weight, .sort-height-asc, .sort-height-desc, .sort-label-height, .sort-clear {
+    .sort-weight-asc, .sort-weight-desc, .sort-label-weight, .sort-height-asc, .sort-height-desc, .sort-label-height, .sort-clear-default {
         display: none;
     }
 
@@ -501,7 +501,7 @@ input[type="search"i] {
         flex-direction: row;
     }
 
-    .sort-order-asc, .sort-order-desc {
+    .sort-id-asc, .sort-id-desc {
         margin-top: 20px;
         margin-left: 5px;
         padding: 12px;
