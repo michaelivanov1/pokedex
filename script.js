@@ -1,38 +1,69 @@
 // fetch pokemon on page load
+// const fetchPokemon = async () => {
+//   let pokeArray = [];
+//   try {
+//     renderLoading();
+//     disableSidebarOnInitialLoad();
+//     let i = 0;
+//     // max count: 905 so far...
+//     for (i = 1; i <= 100; i++) {
+//       const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
+
+//       await fetch(url).then((response) => {
+//         pokeArray.push(response.json());
+//       });
+//       // background load 100 pokemon at a time
+//       if (i % 100 == 0 || i >= 900) {
+//         Promise.all(pokeArray).then((results) => {
+//           const parsePokemon = results.map((data) => ({
+//             name: data.name,
+//             id: "#" + data.id,
+//             image:
+//               // data.sprites.versions["generation-v"]["black-white"].animated[
+//               //   "front_default"
+//               // ] ||
+//               data.sprites["front_default"],
+//             height:
+//               data.height * 10 >= 100 ? data.height * 10 : data.height / 10,
+//             weight: data.weight / 10,
+//             type: data.types.map((type) => type.type.name),
+//             order: data.id,
+//           }));
+//           renderPokemon(parsePokemon);
+//         });
+//       }
+//     }
+//   } catch (err) {
+//     console.error(`error fetching from api: ${err}`);
+//   }
+// };
+
 const fetchPokemon = async () => {
-  let pokeArray = [];
   try {
     renderLoading();
     disableSidebarOnInitialLoad();
-    let i = 0;
-    // max count: 905 so far...
-    for (i = 1; i <= 100; i++) {
-      const url = `https://pokeapi.co/api/v2/pokemon/${i}`;
+    const url = `https://pokeapi.co/api/v2/pokemon?limit=905`;
 
-      await fetch(url).then((response) => {
-        pokeArray.push(response.json());
-      });
-      // background load 100 pokemon at a time
-      if (i % 100 == 0 || i >= 900) {
-        Promise.all(pokeArray).then((results) => {
-          const parsePokemon = results.map((data) => ({
-            name: data.name,
-            id: "#" + data.id,
-            image:
-              // data.sprites.versions["generation-v"]["black-white"].animated[
-              //   "front_default"
-              // ] ||
-              data.sprites["front_default"],
-            height:
-              data.height * 10 >= 100 ? data.height * 10 : data.height / 10,
-            weight: data.weight / 10,
-            type: data.types.map((type) => type.type.name),
-            order: data.id,
-          }));
-          renderPokemon(parsePokemon);
-        });
-      }
-    }
+    const response = await fetch(url);
+    const pokemonData = await response.json();
+    const pokeArray = pokemonData.results;
+
+    const promises = pokeArray.map(p => fetch(p.url).then(res => res.json()));
+
+    const pokemonDetails = await Promise.all(promises);
+
+    const parsePokemon = pokemonDetails.map((data) => ({
+      name: data.name,
+      id: "#" + data.id,
+      image: data.sprites.versions["generation-v"]["black-white"].animated[
+        "front_default"] || data.sprites["front_default"],
+      height: data.height * 10 >= 100 ? data.height * 10 : data.height / 10,
+      weight: data.weight / 10,
+      type: data.types.map((type) => type.type.name),
+      order: data.id,
+    }));
+
+    renderPokemon(parsePokemon);
   } catch (err) {
     console.error(`error fetching from api: ${err}`);
   }
@@ -104,13 +135,11 @@ const renderPokemon = (pokemon) => {
 
   pokemon.map((p) => {
     if (p.type.length > 1) {
-      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])} ">${
-        p.type[0]
-      }</p><p class="card-type ${typeColorCodes(p.type[1])} ">${p.type[1]}</p>`;
+      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])} ">${p.type[0]
+        }</p><p class="card-type ${typeColorCodes(p.type[1])} ">${p.type[1]}</p>`;
     } else {
-      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])}">${
-        p.type[0]
-      }</p>`;
+      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])}">${p.type[0]
+        }</p>`;
     }
     TypeOnPoke.push(currTypes);
   });
@@ -192,10 +221,9 @@ const currentPokemonInfo = (pokemon) => {
       <p class="weight-title">Weight</p>
     </div>
     <div class="selected-card-height-weight-data-container">
-      <p class="height-data">${
-        pokemon.height * 10 >= 100
-          ? pokemon.height / 10 + "m"
-          : pokemon.height * 10 + "cm"
+      <p class="height-data">${pokemon.height * 10 >= 100
+        ? pokemon.height / 10 + "m"
+        : pokemon.height * 10 + "cm"
       }</p>
       <p class="weight-data">${pokemon.weight / 10 + "kg"}</p>
     </div>
@@ -206,9 +234,8 @@ const currentPokemonInfo = (pokemon) => {
     for (let i = 0; i < shortenedStats.length; i++) {
       statsString += `
         <div class="selected-card-stats-full-container">
-          <p class="stats-name ${statColorCodes(shortenedStats[i])}">${
-        shortenedStats[i]
-      }</p>
+          <p class="stats-name ${statColorCodes(shortenedStats[i])}">${shortenedStats[i]
+        }</p>
           <p class="stats-value">${pokemon.base_stat[i]}</p>
         </div>
       `;

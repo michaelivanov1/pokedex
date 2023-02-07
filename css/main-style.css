@@ -537,6 +537,11 @@ input[type="search"i] {
         display: none;
     }
 
+    .pokeball-loading {
+        width: 250px;
+        height: 250px;
+    }
+
     .pokemon-container {
         margin-left: 8%;
         width: 20%;
