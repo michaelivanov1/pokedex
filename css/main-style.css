@@ -63,6 +63,7 @@ input[type="search"i] {
     background-color: #eff3d5;
     padding-left: 20px;
     font-size: medium;
+    outline: none;
 }
 
 .sort-container {
@@ -80,6 +81,10 @@ input[type="search"i] {
     margin-left: 30px;
     display: flex;
     flex-direction: row;
+}
+
+#typeSelect {
+    outline: none;
 }
 
 .stats-container {
