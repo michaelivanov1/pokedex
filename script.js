@@ -173,7 +173,7 @@ const renderPokemon = (pokemon) => {
 // the display that comes up for currently selected pokemon
 const currentPokemonInfo = (pokemon) => {
   let sidebar;
-  // if we're in big screen, we dont want a modal
+  // if we're in big screen, we don't want a modal
   if (window.innerWidth >= 1060) {
     sidebar = document.getElementById("sidebar-container");
     pokemonSidebarStyling();
