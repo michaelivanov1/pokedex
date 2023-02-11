@@ -153,7 +153,8 @@ const renderPokemon = (pokemon) => {
     .map(
       (p) => `
         <button class="card-full" onclick=onPokemonClick(this) id="${p.order}">
-                <img class="card-image" src="${p.image}" alt="${p.name} image"/>
+            <li class="card-li">
+            <img class="card-image" src="${p.image}" alt="${p.name} image"/>
                 <h3 class="card-id">${p.id}</h3>
                 <h2 class="card-title">${p.name}</h2>
                 ${TypeOnPoke[p.order - 1]}
@@ -196,7 +197,7 @@ const currentPokemonInfo = (pokemon) => {
   `;
 
   let HTMLString = `
-      <img class="selected-card-image" src="${pokemon.image}"/>
+      <img class="selected-card-image" src="${pokemon.image}" alt="${pokemon.name} image"/>
       <h3 class="selected-card-id">${pokemon.id}</h3>
       <h2 class="selected-card-title" >${pokemon.name}</h2>
   `;
