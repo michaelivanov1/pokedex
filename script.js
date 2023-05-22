@@ -48,15 +48,19 @@ const fetchPokemon = async () => {
     const pokemonData = await response.json();
     const pokeArray = pokemonData.results;
 
-    const promises = pokeArray.map(p => fetch(p.url).then(res => res.json()));
+    const promises = pokeArray.map((p) =>
+      fetch(p.url).then((res) => res.json())
+    );
 
     const pokemonDetails = await Promise.all(promises);
 
     const parsePokemon = pokemonDetails.map((data) => ({
       name: data.name,
       id: "#" + data.id,
-      image: data.sprites.versions["generation-v"]["black-white"].animated[
-        "front_default"] || data.sprites["front_default"],
+      image:
+        data.sprites.versions["generation-v"]["black-white"].animated[
+          "front_default"
+        ] || data.sprites["front_default"],
       height: data.height * 10 >= 100 ? data.height * 10 : data.height / 10,
       weight: data.weight / 10,
       type: data.types.map((type) => type.type.name),
@@ -135,11 +139,13 @@ const renderPokemon = (pokemon) => {
 
   pokemon.map((p) => {
     if (p.type.length > 1) {
-      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])} ">${p.type[0]
-        }</p><p class="card-type ${typeColorCodes(p.type[1])} ">${p.type[1]}</p>`;
+      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])} ">${
+        p.type[0]
+      }</p><p class="card-type ${typeColorCodes(p.type[1])} ">${p.type[1]}</p>`;
     } else {
-      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])}">${p.type[0]
-        }</p>`;
+      currTypes = `<p class="card-type ${typeColorCodes(p.type[0])}">${
+        p.type[0]
+      }</p>`;
     }
     TypeOnPoke.push(currTypes);
   });
@@ -148,7 +154,7 @@ const renderPokemon = (pokemon) => {
       (p) => `
         <button class="card-full" onclick=onPokemonClick(this) id="${p.order}">
             <li class="card-li">
-                <img class="card-image" src="${p.image}"/>
+            <img class="card-image" src="${p.image}" alt="${p.name} image"/>
                 <h3 class="card-id">${p.id}</h3>
                 <h2 class="card-title">${p.name}</h2>
                 ${TypeOnPoke[p.order - 1]}
@@ -167,7 +173,7 @@ const renderPokemon = (pokemon) => {
 // the display that comes up for currently selected pokemon
 const currentPokemonInfo = (pokemon) => {
   let sidebar;
-  // if we're in big screen, we dont want a modal
+  // if we're in big screen, we don't want a modal
   if (window.innerWidth >= 1060) {
     sidebar = document.getElementById("sidebar-container");
     pokemonSidebarStyling();
@@ -191,7 +197,7 @@ const currentPokemonInfo = (pokemon) => {
   `;
 
   let HTMLString = `
-      <img class="selected-card-image" src="${pokemon.image}"/>
+      <img class="selected-card-image" src="${pokemon.image}" alt="${pokemon.name} image"/>
       <h3 class="selected-card-id">${pokemon.id}</h3>
       <h2 class="selected-card-title" >${pokemon.name}</h2>
   `;
@@ -221,9 +227,10 @@ const currentPokemonInfo = (pokemon) => {
       <p class="weight-title">Weight</p>
     </div>
     <div class="selected-card-height-weight-data-container">
-      <p class="height-data">${pokemon.height * 10 >= 100
-        ? pokemon.height / 10 + "m"
-        : pokemon.height * 10 + "cm"
+      <p class="height-data">${
+        pokemon.height * 10 >= 100
+          ? pokemon.height / 10 + "m"
+          : pokemon.height * 10 + "cm"
       }</p>
       <p class="weight-data">${pokemon.weight / 10 + "kg"}</p>
     </div>
@@ -234,8 +241,9 @@ const currentPokemonInfo = (pokemon) => {
     for (let i = 0; i < shortenedStats.length; i++) {
       statsString += `
         <div class="selected-card-stats-full-container">
-          <p class="stats-name ${statColorCodes(shortenedStats[i])}">${shortenedStats[i]
-        }</p>
+          <p class="stats-name ${statColorCodes(shortenedStats[i])}">${
+        shortenedStats[i]
+      }</p>
           <p class="stats-value">${pokemon.base_stat[i]}</p>
         </div>
       `;
