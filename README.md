@@ -1,1 +1,1 @@
-A 2 person project that aims to create a functional Pokedex using the PokeAPI and only vanilla HTML, CSS, and JS
+A 2 person project to that aims to create a retro-styled fully functional Pokedex using the PokeAPI. uses only vanilla HTML, CSS, & JS.
